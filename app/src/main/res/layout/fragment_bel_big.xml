@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/conteiner"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="2dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_item"
+            android:text="baks"
+
+            android:textSize="20dp"
+            android:textColor="@android:color/black"
+            android:paddingBottom="1dp"
+            android:gravity="center"
+            android:layout_margin="1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rate"
+                android:text="22500"
+
+                android:textSize="18dp"
+                android:layout_weight="0.5"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:padding="3dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/change_rate"
+                android:text="112"
+                android:layout_alignParentRight="true"
+                android:textSize="18dp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:paddingRight="3dp"
+                android:paddingTop="3dp"
+                android:paddingLeft="3dp"
+                android:paddingBottom="3dp"
+                android:gravity="center_vertical|center_horizontal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

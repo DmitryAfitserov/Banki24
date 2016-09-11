@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/conteiner"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/name_item"
+            android:text="baks"
+
+            android:textSize="17dp"
+            android:layout_weight="2"
+            android:gravity="left|center_vertical"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.8"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:id="@+id/rate"
+                android:text="22500"
+
+                android:textSize="16dp"
+                android:layout_weight="1"
+                android:paddingLeft="8dp"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/change_rate"
+                android:text="112"
+                android:layout_marginBottom="7dp"
+                android:layout_alignParentRight="true"
+                android:textSize="16dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="@android:color/black"
+                android:paddingRight="10dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

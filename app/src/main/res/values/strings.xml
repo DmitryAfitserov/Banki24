@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Курсы валют</string>
+    <string name="choose_date">Выберите дату</string>
+    <string name="button_ok">OK</string>
+    <string name="microphone">микрофон</string>
+    <string name="remove">удалить</string>
+    <string name="sort_ab">сортировать</string>
+</resources>
