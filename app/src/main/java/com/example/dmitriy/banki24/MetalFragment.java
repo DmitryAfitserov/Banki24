@@ -114,7 +114,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
 
                         if (listMetal.get(item).getGhangeRate().startsWith("+")) {
                             change_rate_1gr_TextView.setTextColor(Color.RED);
-                            } else change_rate_1gr_TextView.setTextColor(Color.GREEN);
+                            } else change_rate_1gr_TextView.setTextColor(Color.rgb(5, 179, 17));
                         change_rate_1gr_TextView.setText(listMetal.get(item).getGhangeRate());
                     }
 
@@ -128,7 +128,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
 
                         if (listMetal.get(item).getGhangeRate().startsWith("+")) {
                             change_rate_10gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_10gr_TextView.setTextColor(Color.GREEN);
+                        } else change_rate_10gr_TextView.setTextColor(Color.rgb(5, 179, 17));
                         change_rate_10gr_TextView.setText(listMetal.get(item).getGhangeRate());
 
                     }
@@ -142,7 +142,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
 
                         if (listMetal.get(item).getGhangeRate().startsWith("+")) {
                             change_rate_50gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_50gr_TextView.setTextColor(Color.GREEN);
+                        } else change_rate_50gr_TextView.setTextColor(Color.rgb(5, 179, 17));
                         change_rate_50gr_TextView.setText(listMetal.get(item).getGhangeRate());
                     }
                     if(listMetal.get(item).getmNominal().equals("100")){
@@ -155,7 +155,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
 
                         if (listMetal.get(item).getGhangeRate().startsWith("+")) {
                             change_rate_100gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_100gr_TextView.setTextColor(Color.GREEN);
+                        } else change_rate_100gr_TextView.setTextColor(Color.rgb(5, 179, 17));
                         change_rate_100gr_TextView.setText(listMetal.get(item).getGhangeRate());
                     }
                     if(listMetal.get(item).getmNominal().equals("500")){
@@ -167,7 +167,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
 
                         if (listMetal.get(item).getGhangeRate().startsWith("+")) {
                             change_rate_500gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_500gr_TextView.setTextColor(Color.GREEN);
+                        } else change_rate_500gr_TextView.setTextColor(Color.rgb(5, 179, 17));
                         change_rate_500gr_TextView.setText(listMetal.get(item).getGhangeRate());
 
                     }
@@ -181,7 +181,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
 
                         if (listMetal.get(item).getGhangeRate().startsWith("+")) {
                             change_rate_1000gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_1000gr_TextView.setTextColor(Color.GREEN);
+                        } else change_rate_1000gr_TextView.setTextColor(Color.rgb(5, 179, 17));
                         change_rate_1000gr_TextView.setText(listMetal.get(item).getGhangeRate());
                     }
                 }

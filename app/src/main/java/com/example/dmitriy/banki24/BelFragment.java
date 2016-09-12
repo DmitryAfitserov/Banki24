@@ -1,14 +1,19 @@
 package com.example.dmitriy.banki24;
 
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,35 +41,31 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
         setHasOptionsMenu(true);
         listKursBel = BelKursLab.get().getListBel();
 
-
-
-            async = new AsyncTaskBel(this);
-            async.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[])null);
+        async = new AsyncTaskBel(this);
+        async.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[])null);
 
         View rootView = inflater.inflate(R.layout.list, container, false);
-
 
         listKursBel = BelKursLab.get().getListBel();
         ((Adapter) getListAdapter()).clear();
         ((Adapter) getListAdapter()).addAll(listKursBel);
         ((Adapter) getListAdapter()).notifyDataSetChanged();
 
-
-
-
-    return rootView;
+        return rootView;
     }
+
+
 
     @Override
     public void asynccompleteBel(boolean success) {
-        async.cancel(true);
+
        if(success) {
 
            listKursBel = BelKursLab.get().getListBel();
-       //    getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
            ((Adapter) getListAdapter()).clear();
            ((Adapter) getListAdapter()).addAll(listKursBel);
            ((Adapter) getListAdapter()).notifyDataSetChanged();
+
        } else{
            Toast.makeText(getActivity().getApplicationContext(), "Ошибка интернет соединения", Toast.LENGTH_SHORT).show();
        }
@@ -75,8 +76,6 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
     public void clean() {
 
         if(!listKursBel.isEmpty()) {
-         //   getActivity().findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-
             listKursBel.clear();
             BelKursLab.get().cleanListBel();
 
@@ -84,10 +83,20 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
         if(getListAdapter() == null) {
             adapter = new Adapter((ArrayList) listKursBel);
         }
+
         setListAdapter(adapter);
+
         ((Adapter) getListAdapter()).clear();
         ((Adapter) getListAdapter()).addAll(listKursBel);
         ((Adapter) getListAdapter()).notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+       // super.onListItemClick(l, v, position, id);
+        startActivity(new Intent(getActivity(), Converter.class));
+
     }
 
     private class Adapter extends ArrayAdapter<KursModelRub> {
@@ -113,7 +122,7 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
 
                 if(kBel.getGhangeRate().startsWith("+")){
                     changeRateTextView.setTextColor(Color.RED);
-                } else changeRateTextView.setTextColor(Color.GREEN);
+                } else changeRateTextView.setTextColor(Color.rgb(5, 179, 17));
 
                 changeRateTextView.setText(kBel.getGhangeRate());
 
@@ -134,7 +143,7 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
 
                 if(kBel.getGhangeRate().startsWith("+")){
                     changeRateTextView.setTextColor(Color.RED);
-                } else changeRateTextView.setTextColor(Color.GREEN);
+                } else changeRateTextView.setTextColor(Color.rgb(5, 179, 17));
 
 
 

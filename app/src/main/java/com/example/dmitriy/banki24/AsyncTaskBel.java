@@ -70,6 +70,7 @@ public class AsyncTaskBel extends AsyncTask<Void, Void, Boolean> {
     protected void onPostExecute(Boolean s) {
         MetalLab.get().setListForChange(BelKursLab.get().getListBel());
         delegate.asynccompleteBel(s);
+
         try {
             finalize();
         } catch (Throwable throwable) {

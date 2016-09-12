@@ -109,7 +109,7 @@ public class RusFragment extends ListFragment implements AsyncDelegate {
 
                 if(kRus.getGhangeRate().startsWith("+")){
                     changeRateTextView.setTextColor(Color.RED);
-                } else changeRateTextView.setTextColor(Color.GREEN);
+                } else changeRateTextView.setTextColor(Color.rgb(5, 179, 17));
 
                 changeRateTextView.setText(kRus.getGhangeRate());
 
@@ -130,7 +130,7 @@ public class RusFragment extends ListFragment implements AsyncDelegate {
 
                 if(kRus.getGhangeRate().startsWith("+")){
                     changeRateTextView.setTextColor(Color.RED);
-                } else changeRateTextView.setTextColor(Color.GREEN);
+                } else changeRateTextView.setTextColor(Color.rgb(5, 179, 17));
 
 
 
