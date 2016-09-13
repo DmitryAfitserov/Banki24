@@ -1,10 +1,14 @@
 package com.example.dmitriy.banki24;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.math.BigDecimal;
 
 import model.BelKursLab;
 import model.KursModelRub;
@@ -22,6 +26,12 @@ public class FillViewConverter {
     private TextView toCode;
     private EditText fromValue;
     private EditText toValue;
+    private KursModelRub kmb;
+    private BigDecimal coef;
+    private BigDecimal one = new BigDecimal("1");
+    private Boolean isStraight = true;
+    private Boolean isright = true;
+
 
 
     FillViewConverter(Converter con){
@@ -34,11 +44,62 @@ public class FillViewConverter {
         fromValue = (EditText)converter.findViewById(R.id.editText_from);
         toValue = (EditText)converter.findViewById(R.id.editText_to);
 
+
+        fromValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                BigDecimal nominal = new BigDecimal(kmb.getmNominale());
+                BigDecimal end = new BigDecimal(kmb.getmRate());
+                coef = end.divide(nominal, 5,  BigDecimal.ROUND_HALF_UP);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("EEE", String.valueOf(start) + "   " + String.valueOf(before) + "   " + String.valueOf(count));
+                if(s.length()==0){
+                    fromValue.setText("0");
+                    fromValue.setSelection(1);
+                }
+                if(s.length()==2 && s.charAt(0)=='0' && s.charAt(1)!='.'){
+                    fromValue.setText(new StringBuilder().append("").append(s.charAt(1)).toString());
+                    fromValue.setSelection(1);
+                }
+                int countpoits = 0;
+                for(int i = 0; i < s.length(); i++){
+                    if(s.charAt(i)=='.'){
+                        countpoits++;
+                    }
+                    if(countpoits>=2){
+                        isright = false;
+                    }
+                    else isright = true;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(isright) {
+                    String fromr = fromValue.getText().toString();
+                    BigDecimal fromrate = new BigDecimal(fromr);
+                    if (isStraight) {
+
+                        BigDecimal backcoef = one.divide(coef, 5, BigDecimal.ROUND_HALF_UP);
+                        BigDecimal result = fromrate.divide(backcoef, 2, BigDecimal.ROUND_HALF_UP);
+                        toValue.setText(result.toString());
+                    } else {
+                        BigDecimal result = fromrate.divide(coef, 2, BigDecimal.ROUND_HALF_UP);
+                        toValue.setText(result.toString());
+                    }
+
+                } else toValue.setText("ошибка");
+            }
+        });
+
     }
 
     public void fillBelConverter(int position){
         titleTextView.setText("Конвертер валют");
-        KursModelRub kmb = BelKursLab.get().getItem(position);
+        kmb = BelKursLab.get().getItem(position);
         fromName.setText(kmb.getmName() + "(" + kmb.getmCharCode() + ")");
         toName.setText("Белорусский рубль(BYN)");
         fromCode.setText(kmb.getmCharCode());
@@ -49,12 +110,13 @@ public class FillViewConverter {
 
 
 
+
     }
 
     public void fillRusConverter(int position){
 
     }
-    public void fillMetalConverter(int position){
 
-    }
+
+
 }

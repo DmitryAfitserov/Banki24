@@ -49,9 +49,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="пока мир"
-            android:textSize="20dp"
+            android:text="Беларусский рубль(BYN)"
+            android:textSize="24dp"
             android:layout_margin="5dp"
+            android:background="@drawable/back"
+            android:paddingRight="9dp"
+            android:paddingLeft="9dp"
+            android:paddingBottom="3dp"
+            android:textColor="#ffffff"
             android:id="@+id/toname"
             />
     </LinearLayout>
@@ -76,6 +81,7 @@
             android:singleLine="true"
             android:background="#ffffff"
             android:layout_margin="1dp"
+            android:digits="1234567890."
             />
         <TextView
             android:layout_width="wrap_content"

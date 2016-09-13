@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class Converter extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class Converter extends AppCompatActivity {
         setContentView(R.layout.converter);
         String keyclass = (String)getIntent().getSerializableExtra(keyClass);
         int keyposition = (Integer) getIntent().getSerializableExtra(keyPosition);
-        FillViewConverter fillViewConverter = new FillViewConverter(Converter.this);
+        final FillViewConverter fillViewConverter = new FillViewConverter(Converter.this);
 
         if(keyclass.equals("Bel")){
             fillViewConverter.fillBelConverter(keyposition);
@@ -26,9 +28,8 @@ public class Converter extends AppCompatActivity {
         if(keyclass.equals("Rus")){
             fillViewConverter.fillRusConverter(keyposition);
         }
-        if(keyclass.equals("Metal")){
-            fillViewConverter.fillMetalConverter(keyposition);
-        }
+
+
     }
 
 
