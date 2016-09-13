@@ -30,8 +30,11 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
 
     private List<KursModelRub> listKursBel;
 
-    AsyncTaskBel async;
-    Adapter adapter;
+    private AsyncTaskBel async;
+    private Adapter adapter;
+    private static final String keyClass = "opa";
+    private static final String keyPosition = "naka";
+
 
 
 
@@ -94,9 +97,10 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-       // super.onListItemClick(l, v, position, id);
-        startActivity(new Intent(getActivity(), Converter.class));
-
+        Intent intent = new Intent(getActivity(), Converter.class);
+        intent.putExtra(keyClass, "Bel");
+        intent.putExtra(keyPosition, position);
+        startActivity(intent);
     }
 
     private class Adapter extends ArrayAdapter<KursModelRub> {
