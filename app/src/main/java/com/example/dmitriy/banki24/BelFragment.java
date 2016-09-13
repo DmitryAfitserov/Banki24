@@ -65,6 +65,7 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
        if(success) {
 
            listKursBel = BelKursLab.get().getListBel();
+
            ((Adapter) getListAdapter()).clear();
            ((Adapter) getListAdapter()).addAll(listKursBel);
            ((Adapter) getListAdapter()).notifyDataSetChanged();
@@ -111,6 +112,7 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             KursModelRub kBel = getItem(position);
+            Log.d("EEE", String.valueOf(BelKursLab.get().getListBel().size()) + "BelFragment");
             if(kBel.getShow()){
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.fragment_bel_big, null);
 

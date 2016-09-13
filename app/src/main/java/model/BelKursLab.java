@@ -38,6 +38,10 @@ public class BelKursLab {
         return mListBelrub;
     }
 
+    public KursModelRub getItem(int position){
+        return mListBelrub.get(position);
+    }
+
 
 
 

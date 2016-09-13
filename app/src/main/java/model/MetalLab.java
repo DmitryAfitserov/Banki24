@@ -1,5 +1,7 @@
 package model;
 
+
+
 import android.util.Log;
 
 import java.math.BigDecimal;
@@ -14,7 +16,7 @@ public class MetalLab {
 
     private String urlGold = "http://www.nbrb.by/Services/XmlIngots.aspx?onDate=";
     private List<String> listwithNames;
-    private ArrayList<KursModelRub> listForChange;
+    private ArrayList<KursModelRub> listForChange = new ArrayList<>();
     private String namecurrency;
 
 
@@ -22,7 +24,6 @@ public class MetalLab {
     private MetalLab(){
         mListGold = new ArrayList<>();
         listwithNames = new ArrayList<>();
-        listForChange = new ArrayList<>();
         listwithNames.add("Золото");
         listwithNames.add("Серебро");
         listwithNames.add("Платина");
@@ -40,8 +41,8 @@ public class MetalLab {
         return (ArrayList<String>) listwithNames;
     }
 
-    public void setListForChange(ArrayList<KursModelRub> listForChange) {
-        this.listForChange = listForChange;
+    public void setListForChange(ArrayList<KursModelRub> listforchange) {
+        listForChange = new ArrayList<>(listforchange);
     }
 
     public String getUrlGold() {
@@ -102,7 +103,7 @@ public class MetalLab {
             mListGold.get(i).setmYesterDayRate(newRateY.toString());
 
 
-            Log.d("EEE",  "work new!! " + newRateY.toString());
+
 
         }
 

@@ -12,6 +12,7 @@
         android:layout_gravity="center|top"
         android:layout_marginTop="10dp"
         style="?android:listSeparatorTextViewStyle"
+        android:id="@+id/titleTextView"
         />
 
     <LinearLayout
@@ -34,6 +35,7 @@
             android:paddingLeft="9dp"
             android:paddingBottom="3dp"
             android:textColor="#ffffff"
+            android:id="@+id/fromname"
             />
 
         <Button
@@ -50,6 +52,7 @@
             android:text="пока мир"
             android:textSize="20dp"
             android:layout_margin="5dp"
+            android:id="@+id/toname"
             />
     </LinearLayout>
 
@@ -68,30 +71,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/editText_from"
-            android:width="80dp"
-            android:height="40dp"/>
+            android:width="120dp"
+            android:height="40dp"
+            android:singleLine="true"
+            android:background="#ffffff"
+            android:layout_margin="1dp"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="USD"
-            android:textSize="20dp"/>
+            android:textSize="18dp"
+            android:id="@+id/fromcode"
+            android:layout_margin="1dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="="
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:layout_margin="1dp"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:width="80dp"
-            android:height="40dp"/>
+            android:id="@+id/editText_to"
+            android:width="120dp"
+            android:height="40dp"
+            android:focusable="false"
+            android:singleLine="true"
+            android:background="#ffffff"
+            android:layout_margin="1dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="USD"
-            android:textSize="20dp"/>
+            android:textSize="18dp"
+            android:id="@+id/tocode"
+            android:layout_margin="1dp"
+            />
     </LinearLayout>
 
     <Button

@@ -1,6 +1,5 @@
 package model;
 
-import android.util.Log;
 
 import java.math.BigDecimal;
 
