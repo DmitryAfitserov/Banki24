@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -29,6 +30,13 @@ public class Converter extends AppCompatActivity {
             fillViewConverter.fillRusConverter(keyposition);
         }
 
+        Button backButton = fillViewConverter.getBack();
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 

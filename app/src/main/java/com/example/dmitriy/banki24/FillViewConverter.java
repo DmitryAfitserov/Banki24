@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class FillViewConverter {
     private TextView toCode;
     private EditText fromValue;
     private EditText toValue;
+    private Button exchange;
     private KursModelRub kmb;
     private BigDecimal coef;
     private BigDecimal one = new BigDecimal("1");
@@ -43,7 +45,7 @@ public class FillViewConverter {
         toCode = (TextView)converter.findViewById(R.id.tocode);
         fromValue = (EditText)converter.findViewById(R.id.editText_from);
         toValue = (EditText)converter.findViewById(R.id.editText_to);
-
+        exchange = (Button)converter.findViewById(R.id.exchange_button);
 
         fromValue.addTextChangedListener(new TextWatcher() {
             @Override
@@ -55,7 +57,6 @@ public class FillViewConverter {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("EEE", String.valueOf(start) + "   " + String.valueOf(before) + "   " + String.valueOf(count));
                 if(s.length()==0){
                     fromValue.setText("0");
                     fromValue.setSelection(1);
@@ -94,6 +95,24 @@ public class FillViewConverter {
                 } else toValue.setText("ошибка");
             }
         });
+        exchange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String buffer;
+                buffer = fromName.getText().toString();
+                fromName.setText(toName.getText().toString());
+                toName.setText(buffer);
+
+                buffer = fromCode.getText().toString();
+                fromCode.setText(toCode.getText().toString());
+                toCode.setText(buffer);
+
+                buffer = fromValue.getText().toString();
+                fromValue.setText(toValue.getText().toString());
+                toValue.setText(buffer);
+            }
+        });
+
 
     }
 
@@ -106,17 +125,15 @@ public class FillViewConverter {
         toCode.setText("BYN");
         fromValue.setText(kmb.getmNominale());
         toValue.setText(kmb.getmRate());
-
-
-
-
-
     }
 
     public void fillRusConverter(int position){
 
     }
 
+    public Button getBack() {
+        return (Button) converter.findViewById(R.id.backbutton);
+    }
 
 
 }

@@ -44,6 +44,7 @@
             android:layout_gravity="center"
             android:text="поменять"
             android:layout_margin="5dp"
+            android:id="@+id/exchange_button"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -122,6 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="20dp"
-        android:text="Назад"/>
+        android:text="Назад"
+        android:id="@+id/backbutton"/>
 
 </FrameLayout>
