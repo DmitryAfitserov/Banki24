@@ -1,14 +1,24 @@
 package com.example.dmitriy.banki24;
 
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toolbar;
 
 
@@ -22,6 +32,8 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
     private FragmentTransaction fragmentTransaction;
     private Toolbar mActionBarToolbar;
     private  FragmentStatePagerAdapter pagerAdapter;
+    private int startpage;
+    private SharedPreferences sharedPreferences;
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -97,7 +109,7 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
 
         viewPager.setAdapter(pagerAdapter);
 
-        viewPager.setCurrentItem(2);
+        viewPager.setCurrentItem(loadInt());
 
     }
 
@@ -106,9 +118,65 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
         pagerAdapter.notifyDataSetChanged();
     }
 
- //   @Override
- //   public boolean onCreatePanelMenu(int featureId, Menu menu) {
- //       getMenuInflater().inflate(R.menu.menu_toolbar, menu);
- //       return true;
- //   }
+    @Override
+    public boolean onCreatePanelMenu(int featureId, Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        Menu startpage = (Menu)findViewById(R.id.startpage);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.startpage:
+                createAlertDialog();
+                return true;
+        }
+
+
+
+
+        return super.onMenuItemSelected(featureId, item);
+
+    }
+
+    public void createAlertDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Стартовая страница").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveInt(startpage);
+            }
+        });
+        builder.setNegativeButton("Назад", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setSingleChoiceItems(R.array.array_name_page, loadInt(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startpage = which;
+
+            }
+        });
+        builder.create().show();
+                //setView(layout).setCancelable(false).setPositiveButton("OK", new Aler
+    }
+    public void saveInt(int value){
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("key", value);
+        editor.commit();
+    }
+    public int loadInt(){
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int savedValue = sharedPreferences.getInt("key", 0);
+        return savedValue;
+    }
 }

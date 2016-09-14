@@ -3,6 +3,6 @@
     <string name="choose_date">Выберите дату</string>
     <string name="button_ok">OK</string>
     <string name="microphone">микрофон</string>
-    <string name="remove">удалить</string>
-    <string name="sort_ab">сортировать</string>
+    <string name="startpage">Стартова страница</string>
+    <string name="belrub">Бел. рубль</string>
 </resources>
