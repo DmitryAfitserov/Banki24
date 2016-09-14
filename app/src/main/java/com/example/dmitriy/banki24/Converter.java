@@ -1,14 +1,11 @@
 package com.example.dmitriy.banki24;
 
-import android.content.Context;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 public class Converter extends AppCompatActivity {
 
@@ -30,7 +27,7 @@ public class Converter extends AppCompatActivity {
             fillViewConverter.fillRusConverter(keyposition);
         }
 
-        Button backButton = fillViewConverter.getBack();
+        ImageButton backButton = fillViewConverter.getBack();
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

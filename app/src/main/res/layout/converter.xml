@@ -90,7 +90,8 @@
             android:text="USD"
             android:textSize="18dp"
             android:id="@+id/fromcode"
-            android:layout_margin="1dp"/>
+            android:layout_margin="1dp"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -115,15 +116,18 @@
             android:textSize="18dp"
             android:id="@+id/tocode"
             android:layout_margin="1dp"
+            android:textColor="@color/colorPrimaryDark"
             />
     </LinearLayout>
 
-    <Button
+
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
         android:layout_gravity="center|bottom"
-        android:layout_marginBottom="20dp"
-        android:text="Назад"
+        android:layout_marginBottom="30dp"
         android:id="@+id/backbutton"/>
 
 </FrameLayout>

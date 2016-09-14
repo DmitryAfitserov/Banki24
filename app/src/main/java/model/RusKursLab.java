@@ -37,6 +37,10 @@ public class RusKursLab {
         mListRusRub.clear();
     }
 
+    public KursModelRub getItem(int position){
+        return mListRusRub.get(position);
+    }
+
     public void sortListRus(){
         ArrayList<KursModelRub> list = new ArrayList<>();
         for(int i =0; i<  mListRusRub.size(); i++){

@@ -1,6 +1,7 @@
 package com.example.dmitriy.banki24;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,8 @@ public class RusFragment extends ListFragment implements AsyncDelegate {
     private ArrayList<KursModelRub> listKursRus;
     private AsyncTaskRus async;
     Adapter adapter;
+    private static final String keyClass = "opa";
+    private static final String keyPosition = "naka";
 
 
     @Override
@@ -81,6 +85,14 @@ public class RusFragment extends ListFragment implements AsyncDelegate {
         ((Adapter) getListAdapter()).clear();
         ((Adapter) getListAdapter()).addAll(listKursRus);
         ((Adapter) getListAdapter()).notifyDataSetChanged();
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Intent intent = new Intent(getActivity(), Converter.class);
+        intent.putExtra(keyClass, "Rus");
+        intent.putExtra(keyPosition, position);
+        startActivity(intent);
     }
 
     private class Adapter extends ArrayAdapter<KursModelRub> {

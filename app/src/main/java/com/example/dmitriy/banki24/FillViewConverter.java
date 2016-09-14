@@ -1,18 +1,18 @@
 package com.example.dmitriy.banki24;
 
-import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
 
 import model.BelKursLab;
 import model.KursModelRub;
+import model.RusKursLab;
 
 /**
  * Created by Dmitry on 13.09.2016.
@@ -20,7 +20,6 @@ import model.KursModelRub;
 public class FillViewConverter {
 
     private Converter converter;
-    private TextView titleTextView;
     private TextView fromName;
     private TextView toName;
     private TextView fromCode;
@@ -38,7 +37,6 @@ public class FillViewConverter {
 
     FillViewConverter(Converter con){
         converter = con;
-        titleTextView = (TextView)converter.findViewById(R.id.titleTextView);
         fromName = (TextView)converter.findViewById(R.id.fromname);
         toName = (TextView)converter.findViewById(R.id.toname);
         fromCode = (TextView)converter.findViewById(R.id.fromcode);
@@ -110,6 +108,9 @@ public class FillViewConverter {
                 buffer = fromValue.getText().toString();
                 fromValue.setText(toValue.getText().toString());
                 toValue.setText(buffer);
+                if(isStraight){
+                    isStraight = false;
+                } else isStraight = true;
             }
         });
 
@@ -117,7 +118,6 @@ public class FillViewConverter {
     }
 
     public void fillBelConverter(int position){
-        titleTextView.setText("Конвертер валют");
         kmb = BelKursLab.get().getItem(position);
         fromName.setText(kmb.getmName() + "(" + kmb.getmCharCode() + ")");
         toName.setText("Белорусский рубль(BYN)");
@@ -128,11 +128,17 @@ public class FillViewConverter {
     }
 
     public void fillRusConverter(int position){
-
+        kmb = RusKursLab.get().getItem(position);
+        fromName.setText(kmb.getmName() + "(" + kmb.getmCharCode() + ")");
+        toName.setText("Российский рубль(RUS)");
+        fromCode.setText(kmb.getmCharCode());
+        toCode.setText("RUS");
+        fromValue.setText(kmb.getmNominale());
+        toValue.setText(kmb.getmRate());
     }
 
-    public Button getBack() {
-        return (Button) converter.findViewById(R.id.backbutton);
+    public ImageButton getBack() {
+        return (ImageButton) converter.findViewById(R.id.backbutton);
     }
 
 
