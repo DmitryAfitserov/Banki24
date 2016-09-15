@@ -54,6 +54,7 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
         ((Adapter) getListAdapter()).addAll(listKursBel);
         ((Adapter) getListAdapter()).notifyDataSetChanged();
 
+    
         return rootView;
     }
 
