@@ -18,6 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toolbar;
 
+import java.util.ArrayList;
+
+import model.BelKursLab;
+
 public class MainActivity extends FragmentActivity implements ReloadViewPager {
 
 
@@ -26,8 +30,9 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
     private FragmentTransaction fragmentTransaction;
     private Toolbar mActionBarToolbar;
     private  FragmentStatePagerAdapter pagerAdapter;
-    private int startpage;
-    private SharedPreferences sharedPreferences;
+    private CreatorAlertDialogs creatorDialogs;
+
+
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -38,9 +43,10 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
         mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(mActionBarToolbar);
 
-
+        creatorDialogs = new CreatorAlertDialogs(getApplicationContext());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(3);
+
 
 
 
@@ -99,7 +105,7 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
 
         viewPager.setAdapter(pagerAdapter);
 
-        viewPager.setCurrentItem(loadInt());
+        viewPager.setCurrentItem(creatorDialogs.loadInt());
 
     }
 
@@ -119,47 +125,14 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
 
         switch (item.getItemId()){
             case R.id.startpage:
-                createAlertDialogStartPage();
+                creatorDialogs.createAlertDialogStartPage(this);
                 return true;
+            case R.id.belrub:
+                creatorDialogs.createAlertDialogPage(this);
         }
 
         return super.onMenuItemSelected(featureId, item);
 
     }
 
-    public void createAlertDialogStartPage(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setTitle("Стартовая страница").setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                saveInt(startpage);
-            }
-        });
-        builder.setNegativeButton("Назад", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.setSingleChoiceItems(R.array.array_name_page, loadInt(), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startpage = which;
-
-            }
-        });
-        builder.create().show();
-    }
-    public void saveInt(int value){
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("key", value);
-        editor.commit();
-    }
-    public int loadInt(){
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int savedValue = sharedPreferences.getInt("key", 0);
-        return savedValue;
-    }
 }
