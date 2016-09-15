@@ -176,11 +176,7 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
             if(position%2==1){
                 convertView.setBackgroundColor(Color.argb(190, 235, 240, 240));
             } else convertView.setBackgroundColor(Color.argb(255, 243, 241, 241));
-
-
-
-
-
+            
             return convertView;
         }
     }
