@@ -30,7 +30,7 @@ public class RusFragment extends ListFragment implements AsyncDelegate {
     Adapter adapter;
     private static final String keyClass = "opa";
     private static final String keyPosition = "naka";
-
+    LoadingCircle loadingCircle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -44,6 +44,8 @@ public class RusFragment extends ListFragment implements AsyncDelegate {
         }
 
         View rootView = inflater.inflate(R.layout.list, container, false);
+        loadingCircle = new LoadingCircle(rootView, getActivity());
+        loadingCircle.setListShown(false);
         listKursRus = RusKursLab.get().getmListRusRub();
 
 
@@ -55,6 +57,7 @@ public class RusFragment extends ListFragment implements AsyncDelegate {
 
     @Override
     public void asynccompleteBel(boolean success) {
+        loadingCircle.setListShown(true);
         async.cancel(true);
         if(success) {
 

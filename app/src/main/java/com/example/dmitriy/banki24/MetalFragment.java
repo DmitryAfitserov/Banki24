@@ -30,19 +30,19 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
     private ArrayList<String> listwithName = new ArrayList<>();
     private Adapter adapter;
     private String nameCurrency;
+    LoadingCircle loadingCircle;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-      //  listMetal = MetalLab.get().getmListGold();
         if (async == null) {
             async = new AsyncTaskGold(this);
             async.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[]) null);
-            ;
-           // Log.d("EEE", "запуск асинс");
         }
         View rootView = inflater.inflate(R.layout.list, container, false);
+        loadingCircle = new LoadingCircle(rootView, getActivity());
+        loadingCircle.setListShown(false);
         listwithName = MetalLab.get().getListwithNames();
 
 
@@ -52,6 +52,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
 
     @Override
     public void asynccompleteBel(boolean success) {
+        loadingCircle.setListShown(true);
         async.cancel(true);
         if (success) {
 
