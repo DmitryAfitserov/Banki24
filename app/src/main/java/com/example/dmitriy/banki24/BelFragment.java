@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -35,6 +36,11 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
     private static final String keyClass = "opa";
     private static final String keyPosition = "naka";
 
+    boolean mListShown;
+    View mProgressContainer;
+    View mListContainer;
+    public ListView mList;
+
 
 
 
@@ -47,12 +53,21 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
         async = new AsyncTaskBel(this);
         async.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[])null);
 
+        int INTERNAL_EMPTY_ID = 0x00ff0001;
         View rootView = inflater.inflate(R.layout.list, container, false);
+        //(rootView.findViewById(R.id.internalEmpty)).setId(INTERNAL_EMPTY_ID);
+        mList = (ListView) rootView.findViewById(android.R.id.list);
+        mListContainer =  rootView.findViewById(R.id.listContainer);
+        mProgressContainer = rootView.findViewById(R.id.progressContainer);
+        mListShown = true;
+
+       // View rootView = inflater.inflate(R.layout.list, container, false);
 
         listKursBel = BelKursLab.get().getListBel();
         ((Adapter) getListAdapter()).clear();
         ((Adapter) getListAdapter()).addAll(listKursBel);
         ((Adapter) getListAdapter()).notifyDataSetChanged();
+            setListShown(false);
 
     
         return rootView;
@@ -70,6 +85,7 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
            ((Adapter) getListAdapter()).clear();
            ((Adapter) getListAdapter()).addAll(listKursBel);
            ((Adapter) getListAdapter()).notifyDataSetChanged();
+           setListShown(true);
 
        } else{
            Toast.makeText(getActivity().getApplicationContext(), "Ошибка интернет соединения", Toast.LENGTH_SHORT).show();
@@ -167,6 +183,38 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
 
             return convertView;
         }
+    }
+
+    public void setListShown(boolean shown, boolean animate){
+        if (mListShown == shown) {
+            return;
+        }
+        mListShown = shown;
+        if (shown) {
+            if (animate) {
+                mProgressContainer.startAnimation(AnimationUtils.loadAnimation(
+                        getActivity(), android.R.anim.fade_out));
+                mListContainer.startAnimation(AnimationUtils.loadAnimation(
+                        getActivity(), android.R.anim.fade_in));
+            }
+            mProgressContainer.setVisibility(View.GONE);
+            mListContainer.setVisibility(View.VISIBLE);
+        } else {
+            if (animate) {
+                mProgressContainer.startAnimation(AnimationUtils.loadAnimation(
+                        getActivity(), android.R.anim.fade_in));
+                mListContainer.startAnimation(AnimationUtils.loadAnimation(
+                        getActivity(), android.R.anim.fade_out));
+            }
+            mProgressContainer.setVisibility(View.VISIBLE);
+            mListContainer.setVisibility(View.INVISIBLE);
+        }
+    }
+    public void setListShown(boolean shown){
+        setListShown(shown, true);
+    }
+    public void setListShownNoAnimation(boolean shown) {
+        setListShown(shown, false);
     }
 
 
