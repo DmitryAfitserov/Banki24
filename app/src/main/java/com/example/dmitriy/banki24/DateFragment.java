@@ -68,8 +68,12 @@ public class DateFragment extends android.support.v4.app.DialogFragment{
                             public void onClick(DialogInterface dialog, int which) {
                                 sendResult(getActivity().RESULT_OK);
                             }
-                        })
-                .create();
+                        }).setNegativeButton("Назад", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create();
     }
     private void sendResult(int resultCode){
         Intent i = new Intent();

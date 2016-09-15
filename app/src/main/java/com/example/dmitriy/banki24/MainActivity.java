@@ -14,17 +14,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toolbar;
 
-
-
 public class MainActivity extends FragmentActivity implements ReloadViewPager {
-
 
 
     private ViewPager viewPager;
@@ -60,10 +54,7 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
             fragmentTransaction.add(R.id.FragmentConteiner, new UpdatePanel(this)).commit();
         }
 
-
-
         pagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-
 
             @Override
             public Fragment getItem(int position) {
@@ -76,7 +67,6 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
                 if (position == 0) {
                     return new MetalFragment();
                 }
-
                 return new RusFragment();
             }
 
@@ -121,9 +111,6 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        Menu startpage = (Menu)findViewById(R.id.startpage);
-
-
         return true;
     }
 
@@ -132,18 +119,15 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
 
         switch (item.getItemId()){
             case R.id.startpage:
-                createAlertDialog();
+                createAlertDialogStartPage();
                 return true;
         }
-
-
-
 
         return super.onMenuItemSelected(featureId, item);
 
     }
 
-    public void createAlertDialog(){
+    public void createAlertDialogStartPage(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Стартовая страница").setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -166,7 +150,6 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
             }
         });
         builder.create().show();
-                //setView(layout).setCancelable(false).setPositiveButton("OK", new Aler
     }
     public void saveInt(int value){
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
