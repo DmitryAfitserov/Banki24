@@ -50,6 +50,7 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
 
 
 
+
         fm = getSupportFragmentManager();
        // if(fragmentTransaction == null) {
         fragmentTransaction = null;
