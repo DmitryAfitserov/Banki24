@@ -32,8 +32,7 @@ public class SQLdatabase extends SQLiteOpenHelper {
             db.execSQL(CREATE_BEL_TABLE);
 
     }
-
-
+    
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + BEL_TABLE);
