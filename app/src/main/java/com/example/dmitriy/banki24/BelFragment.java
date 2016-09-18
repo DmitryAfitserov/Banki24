@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,7 +129,6 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             KursModelRub kBel = getItem(position);
-            Log.d("EEE", String.valueOf(BelKursLab.get().getListBel().size()) + "BelFragment");
             if(kBel.getShow()){
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.fragment_bel_big, null);
 

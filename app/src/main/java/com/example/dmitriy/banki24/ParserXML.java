@@ -1,6 +1,5 @@
 package com.example.dmitriy.banki24;
 
-import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -177,7 +176,6 @@ public class ParserXML {
 
             }
         }
-        Log.d("EEE", "запись   gold ");
 
     }
 }

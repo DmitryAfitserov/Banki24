@@ -3,6 +3,7 @@ package com.example.dmitriy.banki24;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,7 @@ import android.widget.Toolbar;
 import java.util.ArrayList;
 
 import model.BelKursLab;
+import model.SQLdatabase;
 
 public class MainActivity extends FragmentActivity implements ReloadViewPager {
 
@@ -47,8 +49,14 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(3);
 
-
-
+        SQLdatabase sqLdatabase = new SQLdatabase(getApplicationContext());
+        //SQLiteDatabase db = null;
+        //sqLdatabase.onCreate(db);
+        ControlDatabases controlDatabases = new ControlDatabases();
+        Boolean r = controlDatabases.doesDatabaseExist(getApplicationContext(), "BEL_TABLE");
+        if(r){
+            Log.d("EEE", "da suka");
+        } else  Log.d("EEE", "blia");
 
 
         fm = getSupportFragmentManager();
