@@ -1,12 +1,16 @@
 package model;
 
+import android.database.Cursor;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class RusKursLab {
     private static RusKursLab rusKursLab;
     private ArrayList<KursModelRub> mListRusRub;
     private String url = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=";
+    private List listisshow;
 
 
     public static RusKursLab get(){
@@ -39,6 +43,14 @@ public class RusKursLab {
 
     public KursModelRub getItem(int position){
         return mListRusRub.get(position);
+    }
+
+    public List getListisshow() {
+        return listisshow;
+    }
+
+    public void setListisshow(List listisshow) {
+        this.listisshow = listisshow;
     }
 
     public void sortListRus(){

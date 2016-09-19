@@ -1,6 +1,8 @@
 package com.example.dmitriy.banki24;
 
 
+import android.database.Cursor;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -9,6 +11,7 @@ import org.xml.sax.SAXException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,6 +30,7 @@ public class ParserXML {
 
     KursModelRub specimenBelRub;
     ModelforMetal modelforMetal;
+    List listisshow;
 
 
     public Document parserXML(String stringXML, boolean ifcp1251) throws ParserConfigurationException, IOException, SAXException {
@@ -51,6 +55,7 @@ public class ParserXML {
 
     }
     public void writeKursBel(Document documentToDay, Document documentYesterDay){
+
         NodeList mList1 = documentToDay.getElementsByTagName("Currency");
         NodeList mList2 = documentYesterDay.getElementsByTagName("Currency");
 
@@ -78,12 +83,18 @@ public class ParserXML {
 
                 specimenBelRub.setmNominale(element1.getElementsByTagName("Scale").item(0).getTextContent());
 
-                if(element1.getElementsByTagName("CharCode").item(0).getTextContent().equals("RUB")||
-                        element1.getElementsByTagName("CharCode").item(0).getTextContent().equals("EUR")||
-                        element1.getElementsByTagName("CharCode").item(0).getTextContent().equals("USD")
-                        ){
-                    specimenBelRub.setShow(true);
-                } else specimenBelRub.setShow(false);
+                listisshow = BelKursLab.get().getListisshow();
+
+                Boolean show = false;
+                for(int i = 0; i < listisshow.size(); i++){
+                    if(element1.getElementsByTagName("CharCode").item(0).getTextContent()
+                            .equals(listisshow.get(i))){
+                        show = true;
+                        break;
+                    }
+                }
+
+                specimenBelRub.setShow(show);
 
                 BelKursLab.get().add(specimenBelRub);
 
@@ -121,15 +132,19 @@ public class ParserXML {
                 specimenBelRub.setmNominale(element1.getElementsByTagName("Nominal").item(0).getTextContent());
 
                 //      Log.d("RRR", "запись    " + element1.getElementsByTagName("Name").item(0).getTextContent());
-                if(element1.getElementsByTagName("CharCode").item(0).getTextContent().equals("EUR")||
-                        element1.getElementsByTagName("CharCode").item(0).getTextContent().equals("USD")
-                        ){
-                    specimenBelRub.setShow(true);
-                } else specimenBelRub.setShow(false);
-                specimenBelRub.changeTopoint();
+                listisshow = RusKursLab.get().getListisshow();
 
+                Boolean show = false;
+                for(int i = 0; i < listisshow.size(); i++){
+                    if(element1.getElementsByTagName("CharCode").item(0).getTextContent()
+                            .equals(listisshow.get(i))){
+                        show = true;
+                        break;
+                    }
+                }
+
+                specimenBelRub.setShow(show);
                 RusKursLab.get().add(specimenBelRub);
-
             }
         }
         RusKursLab.get().sortListRus();
@@ -173,9 +188,10 @@ public class ParserXML {
 
 
                 MetalLab.get().additem(modelforMetal);
-
             }
         }
 
     }
+
+
 }

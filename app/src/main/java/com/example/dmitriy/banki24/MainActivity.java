@@ -3,6 +3,7 @@ package com.example.dmitriy.banki24;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,8 +21,10 @@ import android.view.MenuItem;
 import android.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.BelKursLab;
+import model.RusKursLab;
 import model.SQLdatabase;
 
 public class MainActivity extends FragmentActivity implements ReloadViewPager {
@@ -49,14 +52,15 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(3);
 
-        SQLdatabase sqLdatabase = new SQLdatabase(getApplicationContext());
-        //SQLiteDatabase db = null;
-        //sqLdatabase.onCreate(db);
-        ControlDatabases controlDatabases = new ControlDatabases();
-        Boolean r = controlDatabases.doesDatabaseExist(getApplicationContext(), "BEL_TABLE");
-        if(r){
-            Log.d("EEE", "da suka");
-        } else  Log.d("EEE", "blia");
+        ControlDatabases controlDatabases = new ControlDatabases(getApplicationContext());
+        controlDatabases.open();
+        Cursor cursorBel = controlDatabases.queryCharcodeSelected("BEL_TABLE");
+        Cursor cursorRus = controlDatabases.queryCharcodeSelected("RUS_TABLE");
+        BelKursLab.get().setListisshow(chanreCursorToList(cursorBel));
+        RusKursLab.get().setListisshow(chanreCursorToList(cursorRus));
+        cursorBel.close();
+        cursorRus.close();
+
 
 
         fm = getSupportFragmentManager();
@@ -142,6 +146,20 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
 
         return super.onMenuItemSelected(featureId, item);
 
+    }
+    private List chanreCursorToList(Cursor cursor){
+        List<String> list = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(cursor.getColumnIndex("char_code")));
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        return list;
     }
 
 }

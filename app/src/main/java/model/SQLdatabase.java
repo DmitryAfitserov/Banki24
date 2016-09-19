@@ -1,5 +1,6 @@
 package model;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,16 +11,19 @@ import android.util.Log;
  */
 public class SQLdatabase extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "DATA_SETTINGS";
     public static final String BEL_TABLE = "BEL_TABLE";
-    public static final String KEY_ID = "id";
-    public static final String KEY_NAME = "name_currency";
+    public static final String RUS_TABLE = "RUS_TABLE";
+    public static final String KEY_ID = "_id";
     public static final String KEY_CHAR_CODE = "char_code";
     public static final String KEY_IS_SELECTED = "is_selected";
     public static final String CREATE_BEL_TABLE = "CREATE TABLE " + BEL_TABLE
-            + "(" + KEY_ID + "key" + KEY_NAME + "name" + KEY_CHAR_CODE + "char code"
-            + KEY_IS_SELECTED + "selected" + ")";
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_CHAR_CODE + " TEXT, "
+            + KEY_IS_SELECTED + " INTEGER)";
+    public static final String CREATE_RUS_TABLE = "CREATE TABLE " + RUS_TABLE
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_CHAR_CODE + " TEXT, "
+            + KEY_IS_SELECTED + " INTEGER)";
 
 
 
@@ -30,8 +34,15 @@ public class SQLdatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-            db.execSQL(CREATE_BEL_TABLE);
-        Log.d("EEE", "da sa");
+        db.execSQL(CREATE_BEL_TABLE);
+        db.execSQL(CREATE_RUS_TABLE);
+        insert(db, "USD", true, "BEL");
+        insert(db, "EUR", true, "BEL");
+        insert(db, "RUB", true, "BEL");
+        insert(db, "USD", true, "RUS");
+        insert(db, "EUR", true, "RUS");
+
+
 
 
     }
@@ -40,5 +51,20 @@ public class SQLdatabase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + BEL_TABLE);
         onCreate(db);
+    }
+
+    private void insert(SQLiteDatabase db, String charcode, Boolean isselected, String nameTable){
+        ContentValues contentValue = new ContentValues();
+        //  contentValue.put(mydatabase.KEY_ID, );
+        contentValue.put(KEY_CHAR_CODE, charcode);
+        if(isselected){
+            contentValue.put(KEY_IS_SELECTED, 1);
+
+        } else { contentValue.put(KEY_IS_SELECTED, 0);}
+
+        if(nameTable.equals("BEL")){
+            db.insert(BEL_TABLE, null, contentValue);
+
+        } else db.insert(RUS_TABLE, null, contentValue);
     }
 }

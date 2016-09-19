@@ -1,12 +1,16 @@
 package model;
 
+import android.database.Cursor;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class BelKursLab {
     private static BelKursLab mBelKursLab;
     private ArrayList<KursModelRub> mListBelrub;
     private String url = "http://www.nbrb.by/Services/XmlExRates.aspx?ondate=";
+    private List listisshow;
 
 
     private BelKursLab(){
@@ -42,9 +46,13 @@ public class BelKursLab {
         return mListBelrub.get(position);
     }
 
+    public List getListisshow() {
+        return listisshow;
+    }
 
-
-
+    public void setListisshow(List listisshow) {
+        this.listisshow = listisshow;
+    }
 
     public void sortListBel(){
         ArrayList<KursModelRub> list = new ArrayList<>();

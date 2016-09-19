@@ -15,17 +15,16 @@ import model.SQLdatabase;
  */
 public class ControlDatabases {
 
-    public class SQLController {
 
         private SQLdatabase mydatabase;
         private Context mycontext;
         private SQLiteDatabase database;
 
-        public SQLController(Context c) {
+        public ControlDatabases(Context c) {
             mycontext = c;
         }
 
-        public SQLController open() throws SQLException {
+        public ControlDatabases open() throws SQLException {
             mydatabase = new SQLdatabase(mycontext);
             database = mydatabase.getWritableDatabase();
             return this;
@@ -36,25 +35,42 @@ public class ControlDatabases {
             mydatabase.close();
         }
 
-        public void insert() {
+        public void insert(String charcode, Boolean isselected) {
             ContentValues contentValue = new ContentValues();
-            contentValue.put(mydatabase.KEY_ID, );
-            contentValue.put(mydatabase.KEY_NAME, );
-            contentValue.put(mydatabase.KEY_CHAR_CODE, );
-            contentValue.put(mydatabase.KEY_IS_SELECTED, );
+          //  contentValue.put(mydatabase.KEY_ID, );
+            contentValue.put(mydatabase.KEY_CHAR_CODE, charcode);
+            if(isselected){
+                contentValue.put(mydatabase.KEY_IS_SELECTED, 1);
+
+            } else { contentValue.put(mydatabase.KEY_IS_SELECTED, 0);}
+
             database.insert(mydatabase.BEL_TABLE, null, contentValue);
         }
 
-//        public Cursor fetch() {
-//            String[] columns = new String[] { mydatabase._ID, mydatabase.TODO_SUBJECT,
-//                    mydatabase.TODO_DESC };
-//            Cursor cursor = database.query(mydatabase.TABLE_NAME, columns, null,
-//                    null, null, null, null);
-//            if (cursor != null) {
-//                cursor.moveToFirst();
-//            }
-//            return cursor;
-//        }
+        public Cursor query() {
+            Cursor cursor = database.query(mydatabase.BEL_TABLE, null, null,
+                    null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+            }
+            return cursor;
+        }
+
+        public Cursor queryCharcodeSelected(String nameTable){
+            String[] colums = new String[] {mydatabase.KEY_CHAR_CODE};
+            Cursor cursor;
+            if(nameTable.equals(mydatabase.BEL_TABLE)){
+                cursor = database.query(mydatabase.BEL_TABLE, colums,
+                        mydatabase.KEY_IS_SELECTED + " = " + 1 , null, null,null,null);
+            } else{
+                cursor = database.query(mydatabase.RUS_TABLE, colums,
+                        mydatabase.KEY_IS_SELECTED + " = " + 1 , null, null,null,null);
+            }
+            if(cursor != null){
+                cursor.moveToFirst();
+            }
+            return cursor;
+        }
 
 //        public int update(long _id, String name, String desc) {
 //            ContentValues contentValues = new ContentValues();
@@ -65,8 +81,9 @@ public class ControlDatabases {
 //            return i;
 //        }
 
-        public void delete(long _id) {
-            database.delete(mydatabase.BEL_TABLE, mydatabase.KEY_ID + "=" + _id, null);
+        public void delete() {
+          //  database.delete(mydatabase.BEL_TABLE, mydatabase.KEY_ID + "=" + _id, null);
+            database.delete(mydatabase.BEL_TABLE, null, null);
         }
-    }
+
 }
