@@ -3,12 +3,19 @@ package com.example.dmitriy.banki24;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.BelKursLab;
+import model.KursModelRub;
+import model.RusKursLab;
 
 /**
  * Created by Dmitry on 16.09.2016.
@@ -19,7 +26,10 @@ public class CreatorAlertDialogs {
     private Context context;
     private int startpage;
     ArrayList mSelectedItems;
-    CharSequence[] ar;
+    CharSequence[] listwithname;
+    boolean[] listBoolean;
+    List<KursModelRub> listrates;
+    List<String> listshow;
 
     public CreatorAlertDialogs(Context context){
         this.context = context;
@@ -52,15 +62,51 @@ public class CreatorAlertDialogs {
     }
 
 
-    public void createAlertDialogPage(MainActivity mainActivity){
-        ar = new String[BelKursLab.get().getListBel().size()];
-        for(int i  = 0; i < ar.length; i++){
-            ar[i] = BelKursLab.get().getListBel().get(i).getmName();
+    public void createAlertDialogPageBel(final MainActivity mainActivity, final FragmentStatePagerAdapter pagerAdapter){
+
+        listwithname = new String[BelKursLab.get().getListBel().size()];
+        listBoolean = new boolean[BelKursLab.get().getListBel().size()];
+        listrates = BelKursLab.get().getListBel();
+        listshow = BelKursLab.get().getListisshow();
+        mSelectedItems.clear();
+
+        for(int itemrate = 0; itemrate < listrates.size(); itemrate++){
+            if(itemrate < listshow.size()){
+                listwithname[itemrate] = listrates.get(itemrate).getmName();
+                listBoolean[itemrate] = true;
+                mSelectedItems.add(itemrate);
+                Log.d("EEE", "true");
+            }
+            if(itemrate >= listshow.size()){
+                listwithname[itemrate] = listrates.get(itemrate).getmName();
+                listBoolean[itemrate] = false;
+                Log.d("EEE", "false");
+            }
         }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
         builder.setTitle("Выберите крупное отображение").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                ControlDatabases controlDatabases = new ControlDatabases(mainActivity);
+                controlDatabases.open();
+                controlDatabases.clearBelTable();
+
+                for (int i =0; i < listrates.size(); i++){
+                    if(mSelectedItems.contains(i)){
+                        listrates.get(i).setShow(true);
+                        controlDatabases.insert(listrates.get(i).getmCharCode(), true, "BEL_TABLE");
+                    }
+                    else{
+                        listrates.get(i).setShow(false);
+                    }
+
+                }
+                BelKursLab.get().sortListBel();
+                BelKursLab.get().setListisshow(controlDatabases.queryCharcodeSelected("BEL_TABLE"));
+                controlDatabases.close();
+                mSelectedItems.clear();
+                pagerAdapter.notifyDataSetChanged();
 
             }
         });
@@ -70,14 +116,79 @@ public class CreatorAlertDialogs {
 
             }
         });
-        builder.setMultiChoiceItems(ar, null, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setMultiChoiceItems(listwithname, listBoolean, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
-                    // If the user checked the item, add it to the selected items
                     mSelectedItems.add(which);
                 } else if (mSelectedItems.contains(which)) {
-                    // Else, if the item is already in the array, remove it
+                    mSelectedItems.remove(Integer.valueOf(which));
+                }
+            }
+        }).create().show();
+    }
+
+    public void createAlertDialogPageRus(final MainActivity mainActivity, final FragmentStatePagerAdapter pagerAdapter){
+        mSelectedItems.clear();
+        listwithname = new String[RusKursLab.get().getmListRusRub().size()];
+        listBoolean = new boolean[RusKursLab.get().getmListRusRub().size()];
+        listrates = RusKursLab.get().getmListRusRub();
+        listshow = RusKursLab.get().getListisshow();
+
+        Log.d("EEE", String.valueOf(RusKursLab.get().getmListRusRub().size()));
+
+        for(int itemrate = 0; itemrate < listrates.size(); itemrate++){
+            if(itemrate < listshow.size()){
+                listwithname[itemrate] = listrates.get(itemrate).getmName();
+                listBoolean[itemrate] = true;
+                mSelectedItems.add(itemrate);
+                Log.d("EEE", "true");
+            }
+            if(itemrate >= listshow.size()){
+                listwithname[itemrate] = listrates.get(itemrate).getmName();
+                listBoolean[itemrate] = false;
+                Log.d("EEE", "false");
+            }
+        }
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        builder.setTitle("Выберите крупное отображение").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ControlDatabases controlDatabases = new ControlDatabases(mainActivity);
+                controlDatabases.open();
+                controlDatabases.clearRusTable();
+
+                for (int i =0; i < listrates.size(); i++){
+                    if(mSelectedItems.contains(i)){
+                        listrates.get(i).setShow(true);
+                        controlDatabases.insert(listrates.get(i).getmCharCode(), true, "RUS_TABLE");
+                    }
+                    else{
+                        listrates.get(i).setShow(false);
+                    }
+
+                }
+                RusKursLab.get().sortListRus();
+                RusKursLab.get().setListisshow(controlDatabases.queryCharcodeSelected("RUS_TABLE"));
+                controlDatabases.close();
+                mSelectedItems.clear();
+                pagerAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("Назад", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setMultiChoiceItems(listwithname, listBoolean, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    mSelectedItems.add(which);
+                } else if (mSelectedItems.contains(which)) {
                     mSelectedItems.remove(Integer.valueOf(which));
                 }
             }

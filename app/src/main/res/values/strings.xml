@@ -2,7 +2,7 @@
     <string name="app_name">Курсы валют</string>
     <string name="choose_date">Выберите дату</string>
     <string name="button_ok">OK</string>
-    <string name="microphone">микрофон</string>
-    <string name="startpage">Стартова страница</string>
-    <string name="belrub">Бел. рубль</string>
+    <string name="startpage">Стартовая страница</string>
+    <string name="belrub">Белорусский рубль</string>
+    <string name="rusrub">Российский рубль</string>
 </resources>

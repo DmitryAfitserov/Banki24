@@ -1,6 +1,7 @@
 package model;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +51,9 @@ public class BelKursLab {
         return listisshow;
     }
 
-    public void setListisshow(List listisshow) {
-        this.listisshow = listisshow;
+    public void setListisshow(Cursor cursor) {
+
+        this.listisshow = chanreCursorToList(cursor);
     }
 
     public void sortListBel(){
@@ -76,5 +78,18 @@ public class BelKursLab {
         mListBelrub.clear();
     }
 
+    private List chanreCursorToList(Cursor cursor){
+        List<String> list = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(cursor.getColumnIndex("char_code")));
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        return list;
+    }
 
 }

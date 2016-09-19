@@ -142,7 +142,7 @@ public class ParserXML {
                         break;
                     }
                 }
-
+                specimenBelRub.changeTopoint();
                 specimenBelRub.setShow(show);
                 RusKursLab.get().add(specimenBelRub);
             }

@@ -49,8 +49,8 @@ public class RusKursLab {
         return listisshow;
     }
 
-    public void setListisshow(List listisshow) {
-        this.listisshow = listisshow;
+    public void setListisshow(Cursor cursor) {
+        this.listisshow = chanreCursorToList(cursor);
     }
 
     public void sortListRus(){
@@ -70,6 +70,21 @@ public class RusKursLab {
         mListRusRub = list;
 
 
+    }
+
+    private List chanreCursorToList(Cursor cursor){
+        List<String> list = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(cursor.getColumnIndex("char_code")));
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        return list;
     }
 
 }

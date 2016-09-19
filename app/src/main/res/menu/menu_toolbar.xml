@@ -12,4 +12,9 @@
         android:title="@string/belrub"
         yourapp:showAsAction="always" />
 
+    <item
+        android:id="@+id/rusrub"
+        android:title="@string/rusrub"
+        yourapp:showAsAction="always" />
+
 </menu>

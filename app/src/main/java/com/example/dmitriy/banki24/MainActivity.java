@@ -1,31 +1,23 @@
 package com.example.dmitriy.banki24;
 
 import android.annotation.TargetApi;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import model.BelKursLab;
 import model.RusKursLab;
-import model.SQLdatabase;
 
 public class MainActivity extends FragmentActivity implements ReloadViewPager {
 
@@ -56,10 +48,9 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
         controlDatabases.open();
         Cursor cursorBel = controlDatabases.queryCharcodeSelected("BEL_TABLE");
         Cursor cursorRus = controlDatabases.queryCharcodeSelected("RUS_TABLE");
-        BelKursLab.get().setListisshow(chanreCursorToList(cursorBel));
-        RusKursLab.get().setListisshow(chanreCursorToList(cursorRus));
-        cursorBel.close();
-        cursorRus.close();
+        BelKursLab.get().setListisshow(cursorBel);
+        RusKursLab.get().setListisshow(cursorRus);
+
 
 
 
@@ -141,25 +132,15 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
                 creatorDialogs.createAlertDialogStartPage(this);
                 return true;
             case R.id.belrub:
-                creatorDialogs.createAlertDialogPage(this);
+                creatorDialogs.createAlertDialogPageBel(this, pagerAdapter);
+                return true;
+            case R.id.rusrub:
+                creatorDialogs.createAlertDialogPageRus(this, pagerAdapter);
         }
 
         return super.onMenuItemSelected(featureId, item);
 
     }
-    private List chanreCursorToList(Cursor cursor){
-        List<String> list = new ArrayList<>();
 
-        if (cursor.moveToFirst()) {
-            do {
-                list.add(cursor.getString(cursor.getColumnIndex("char_code")));
-
-
-            } while (cursor.moveToNext());
-
-        }
-        cursor.close();
-        return list;
-    }
 
 }
