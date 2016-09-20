@@ -49,14 +49,10 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
         return rootView;
     }
 
-
     @Override
     public void asynccompleteBel(boolean success) {
-        loadingCircle.setListShown(true);
-        async.cancel(true);
-        if (success) {
 
-           // listMetal = MetalLab.get().getmListGold();
+        if (success) {
 
             listwithName = MetalLab.get().getListwithNames();
             listMetal = MetalLab.get().getmListGold();
@@ -65,10 +61,10 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
             ((Adapter) getListAdapter()).notifyDataSetChanged();
             nameCurrency = MetalLab.get().getNameCurrency();
 
-
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "Ошибка интернет соединения", Toast.LENGTH_SHORT).show();
         }
+        loadingCircle.setListShown(true);
     }
 
 
@@ -188,27 +184,6 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
                 }
             }
 
-
-            //if (kRus.getShow()) {
-                //convertView = getActivity().getLayoutInflater().inflate(R.layout.fragment_bel_big, null);
-
-                //TextView nameTextview = (TextView) convertView.findViewById(R.id.name_item);
-                //nameTextview.setText(kRus.getmName());
-
-               // TextView currentTextView = (TextView) convertView.findViewById(R.id.rate);
-
-               // currentTextView.setText(kRus.getmNominale() + " " + kRus.getmCharCode() + " = " +
-                //        String.valueOf(kRus.getmRate()) + " руб");
-
-                //TextView changeRateTextView = (TextView) convertView.findViewById(R.id.change_rate);
-
-
-                //if (kRus.getGhangeRate().startsWith("+")) {
-                //    changeRateTextView.setTextColor(Color.RED);
-                //} else changeRateTextView.setTextColor(Color.GREEN);
-
-                //changeRateTextView.setText(kRus.getGhangeRate());
-           // }
 
             if (position % 2 == 1) {
                 convertView.setBackgroundColor(Color.argb(190, 235, 240, 240));

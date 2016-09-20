@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import java.io.File;
 
 import model.SQLdatabase;
 
@@ -38,7 +35,6 @@ public class ControlDatabases {
 
         public void insert(String charcode, Boolean isselected, String nameTable) {
             ContentValues contentValue = new ContentValues();
-          //  contentValue.put(mydatabase.KEY_ID, );
             contentValue.put(mydatabase.KEY_CHAR_CODE, charcode);
             if(isselected){
                 contentValue.put(mydatabase.KEY_IS_SELECTED, 1);
@@ -74,16 +70,6 @@ public class ControlDatabases {
             }
             return cursor;
         }
-
-//        public int update(long _id, String name, String desc) {
-//            ContentValues contentValues = new ContentValues();
-//            contentValues.put(mydatabase.TODO_SUBJECT, name);
-//            contentValues.put(mydatabase.TODO_DESC, desc);
-//            int i = database.update(mydatabase.TABLE_NAME, contentValues,
-//                    mydatabase._ID + " = " + _id, null);
-//            return i;
-//        }
-
 
         public void clearBelTable(){
             database.execSQL("delete from "+ mydatabase.BEL_TABLE);

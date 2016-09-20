@@ -45,10 +45,24 @@ public class AsyncTaskGold extends AsyncTask<Void, Void, Boolean> {
         String xmlToday = loadXML(urlGoldToday);
         String xmlYesterday = loadXML(urlGoldYesterday);
 
-
+        istrue = false;
         if(xmlToday!=null && xmlYesterday!=null) {
             try {
                 istrue = createList(xmlToday, xmlYesterday);
+
+                for(int i = 0; i<100; i++){
+                    if(!MetalLab.get().getListForChange().isEmpty()){
+                        break;
+                    }
+
+                    try {
+                        Thread.sleep(400);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -63,19 +77,6 @@ public class AsyncTaskGold extends AsyncTask<Void, Void, Boolean> {
 
         }
 
-        for(int i = 0; i<100; i++){
-            if(!MetalLab.get().getListForChange().isEmpty()){
-                break;
-            }
-
-            try {
-                Thread.sleep(400);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-        }
         Boolean f =  MetalLab.get().changeCurrency("USD");
 
 

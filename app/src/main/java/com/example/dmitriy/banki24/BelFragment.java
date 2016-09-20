@@ -36,13 +36,6 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
     private static final String keyPosition = "naka";
     LoadingCircle loadingCircle;
 
-    //boolean mListShown;
-   // View mProgressContainer;
-    //View mListContainer;
-    //public ListView mList;
-
-
-
 
 @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -53,15 +46,9 @@ public class BelFragment extends ListFragment implements AsyncDelegate {
         async = new AsyncTaskBel(this);
         async.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[])null);
 
-        //int INTERNAL_EMPTY_ID = 0x00ff0001;
         View rootView = inflater.inflate(R.layout.list, container, false);
         loadingCircle = new LoadingCircle(rootView, getActivity());
-        //mList = (ListView) rootView.findViewById(android.R.id.list);
-        //mListContainer =  rootView.findViewById(R.id.listContainer);
-        //mProgressContainer = rootView.findViewById(R.id.progressContainer);
-        //mListShown = true;
 
-       // View rootView = inflater.inflate(R.layout.list, container, false);
 
         listKursBel = BelKursLab.get().getListBel();
         ((Adapter) getListAdapter()).clear();
