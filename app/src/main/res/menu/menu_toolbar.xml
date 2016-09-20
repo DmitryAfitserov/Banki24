@@ -13,8 +13,13 @@
         yourapp:showAsAction="always" />
 
     <item
-        android:id="@+id/rusrub"
-        android:title="@string/rusrub"
+    android:id="@+id/rusrub"
+    android:title="@string/rusrub"
+    yourapp:showAsAction="always" />
+
+    <item
+        android:id="@+id/metal"
+        android:title="@string/metal"
         yourapp:showAsAction="always" />
 
 </menu>

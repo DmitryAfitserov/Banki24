@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Dmitry on 17.09.2016.
@@ -40,9 +41,6 @@ public class SQLdatabase extends SQLiteOpenHelper {
         insert(db, "RUB", true, "BEL");
         insert(db, "USD", true, "RUS");
         insert(db, "EUR", true, "RUS");
-
-
-
 
     }
 

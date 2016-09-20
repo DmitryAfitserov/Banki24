@@ -157,6 +157,7 @@ public class ParserXML {
 
 
         MetalLab.get().cleanList();
+        MetalLab.get().clear();
 
         for (int temp = 0; temp < mList1.getLength(); temp++) {
 

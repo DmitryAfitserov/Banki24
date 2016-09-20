@@ -15,6 +15,8 @@ import java.util.List;
 
 import model.BelKursLab;
 import model.KursModelRub;
+import model.MetalLab;
+import model.ModelforMetal;
 import model.RusKursLab;
 
 /**
@@ -193,6 +195,36 @@ public class CreatorAlertDialogs {
                 }
             }
         }).create().show();
+    }
+
+    public void createAlertDialogPageMetal(MainActivity mainActivity, FragmentStatePagerAdapter pagerAdapter){
+        listrates = MetalLab.get().getListForChange();
+        listwithname = new String[listrates.size()];
+        for(int i = 0; i < listrates.size(); i++){
+            listwithname[i] = listrates.get(i).getmName() +"(" +
+                    listrates.get(i).getmCharCode() + ")";
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        builder.setTitle("Выберите валюту для металлов");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setSingleChoiceItems(listwithname, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
+
     }
 
 

@@ -48,6 +48,7 @@ public class AsyncTaskGold extends AsyncTask<Void, Void, Boolean> {
         istrue = false;
         if(xmlToday!=null && xmlYesterday!=null) {
             try {
+
                 istrue = createList(xmlToday, xmlYesterday);
 
                 for(int i = 0; i<100; i++){

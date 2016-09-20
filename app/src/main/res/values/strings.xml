@@ -5,4 +5,6 @@
     <string name="startpage">Стартовая страница</string>
     <string name="belrub">Белорусский рубль</string>
     <string name="rusrub">Российский рубль</string>
+    <string name="metal">Драгоценные металы</string>
+
 </resources>

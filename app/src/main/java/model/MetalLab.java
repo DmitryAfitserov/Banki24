@@ -67,7 +67,7 @@ public class MetalLab {
     public boolean changeCurrency(String charCod){
         setNameCurrency(charCod);
         if(charCod.equals("BYN")){
-            listForChange.clear();
+            //listForChange.clear();
             return true;
         }
         String rate =null;
@@ -77,7 +77,7 @@ public class MetalLab {
             if(charCod.equals(listForChange.get(i).getmCharCode())){
                 rate = listForChange.get(i).getmRate();
                 nominal = listForChange.get(i).getmNominale();
-                listForChange.clear();
+             //   listForChange.clear();
                 break;
             }
         }
@@ -99,12 +99,13 @@ public class MetalLab {
             BigDecimal newRateY = oldRateY.divide(index, 2, BigDecimal.ROUND_HALF_UP);
             mListGold.get(i).setmYesterDayRate(newRateY.toString());
 
-
-
-
         }
 
         return true;
+    }
+
+    public void clear(){
+        listForChange.clear();
     }
 
     public ArrayList<KursModelRub> getListForChange() {

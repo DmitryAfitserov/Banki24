@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toolbar;
@@ -136,6 +135,10 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
                 return true;
             case R.id.rusrub:
                 creatorDialogs.createAlertDialogPageRus(this, pagerAdapter);
+                return true;
+            case R.id.metal:
+                creatorDialogs.createAlertDialogPageMetal(this, pagerAdapter);
+                return true;
         }
 
         return super.onMenuItemSelected(featureId, item);
