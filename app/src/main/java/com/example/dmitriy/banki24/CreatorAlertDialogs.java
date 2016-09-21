@@ -200,15 +200,21 @@ public class CreatorAlertDialogs {
 
     public void createAlertDialogPageMetal(MainActivity mainActivity, final FragmentStatePagerAdapter pagerAdapter){
         listrates = MetalLab.get().getListForChange();
+
+        if(!listrates.get(listrates.size() - 1).getmCharCode().equals("BYN")){
+            KursModelRub kmr = new KursModelRub();
+            kmr.setmCharCode("BYN");
+            kmr.setmName("Белорусский рубль");
+            listrates.add(kmr);
+        }
         listwithname = new String[listrates.size()];
         for(int i = 0; i < listrates.size(); i++){
             listwithname[i] = listrates.get(i).getmName() +"(" +
                     listrates.get(i).getmCharCode() + ")";
         }
-        String charcodeisselected = loadString();
         numberSelected = 0;
         for(int i = 0; i < listrates.size(); i++){
-            if(charcodeisselected.equals(listrates.get(i).getmCharCode())){
+            if(loadString().equals(listrates.get(i).getmCharCode())){
                 numberSelected = i;
                 break;
             }

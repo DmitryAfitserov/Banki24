@@ -146,6 +146,4 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
         return super.onMenuItemSelected(featureId, item);
 
     }
-
-
 }
