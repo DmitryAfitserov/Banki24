@@ -18,6 +18,7 @@ public class MetalLab {
 
 
 
+
     private MetalLab(){
         mListGold = new ArrayList<>();
         listwithNames = new ArrayList<>();
@@ -64,8 +65,9 @@ public class MetalLab {
         return listwithNames.get(i);
     }
 
-    public boolean changeCurrency(String charCod){
-        setNameCurrency(charCod);
+
+    public boolean changeCurrency(){
+        String charCod = getNameCurrency();
         if(charCod.equals("BYN")){
             //listForChange.clear();
             return true;

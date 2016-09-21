@@ -57,7 +57,7 @@ public class AsyncTaskGold extends AsyncTask<Void, Void, Boolean> {
                     }
 
                     try {
-                        Thread.sleep(400);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -78,7 +78,10 @@ public class AsyncTaskGold extends AsyncTask<Void, Void, Boolean> {
 
         }
 
-        Boolean f =  MetalLab.get().changeCurrency("USD");
+        Boolean f =  MetalLab.get().changeCurrency();
+        if(!f){
+            return f;
+        }
 
 
         return istrue;

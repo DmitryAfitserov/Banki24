@@ -16,6 +16,7 @@ import android.widget.Toolbar;
 
 
 import model.BelKursLab;
+import model.MetalLab;
 import model.RusKursLab;
 
 public class MainActivity extends FragmentActivity implements ReloadViewPager {
@@ -49,6 +50,7 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
         Cursor cursorRus = controlDatabases.queryCharcodeSelected("RUS_TABLE");
         BelKursLab.get().setListisshow(cursorBel);
         RusKursLab.get().setListisshow(cursorRus);
+        MetalLab.get().setNameCurrency(creatorDialogs.loadString());
 
 
 

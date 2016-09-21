@@ -27,11 +27,12 @@ public class CreatorAlertDialogs {
     private SharedPreferences sharedPreferences;
     private Context context;
     private int startpage;
-    ArrayList mSelectedItems;
-    CharSequence[] listwithname;
-    boolean[] listBoolean;
-    List<KursModelRub> listrates;
-    List<String> listshow;
+    private ArrayList mSelectedItems;
+    private CharSequence[] listwithname;
+    private boolean[] listBoolean;
+    private List<KursModelRub> listrates;
+    private List<String> listshow;
+    private int numberSelected = 0;
 
     public CreatorAlertDialogs(Context context){
         this.context = context;
@@ -197,19 +198,30 @@ public class CreatorAlertDialogs {
         }).create().show();
     }
 
-    public void createAlertDialogPageMetal(MainActivity mainActivity, FragmentStatePagerAdapter pagerAdapter){
+    public void createAlertDialogPageMetal(MainActivity mainActivity, final FragmentStatePagerAdapter pagerAdapter){
         listrates = MetalLab.get().getListForChange();
         listwithname = new String[listrates.size()];
         for(int i = 0; i < listrates.size(); i++){
             listwithname[i] = listrates.get(i).getmName() +"(" +
                     listrates.get(i).getmCharCode() + ")";
         }
+        String charcodeisselected = loadString();
+        numberSelected = 0;
+        for(int i = 0; i < listrates.size(); i++){
+            if(charcodeisselected.equals(listrates.get(i).getmCharCode())){
+                numberSelected = i;
+                break;
+            }
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
         builder.setTitle("Выберите валюту для металлов");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                saveSrting(listrates.get(numberSelected).getmCharCode());
+                MetalLab.get().setNameCurrency(listrates.get(numberSelected).getmCharCode());
+                pagerAdapter.notifyDataSetChanged();
             }
         });
         builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
@@ -218,10 +230,10 @@ public class CreatorAlertDialogs {
 
             }
         });
-        builder.setSingleChoiceItems(listwithname, 0, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(listwithname, numberSelected, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                numberSelected = which;
             }
         }).create().show();
 
@@ -236,7 +248,19 @@ public class CreatorAlertDialogs {
     }
     public int loadInt(){
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int savedValue = sharedPreferences.getInt("key", 0);
+        int savedValue = sharedPreferences.getInt("key", 1);
         return savedValue;
+    }
+
+    public void saveSrting(String charcode){
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("string", charcode);
+        editor.commit();
+    }
+    public String loadString(){
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String charcode = sharedPreferences.getString("string", "USD");
+        return charcode;
     }
 }

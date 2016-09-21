@@ -72,6 +72,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
     public void clean() {
         if (!listwithName.isEmpty()) {
             listwithName.clear();
+            MetalLab.get().clear();
             listMetal.clear();
         }
         if (getListAdapter() == null) {
