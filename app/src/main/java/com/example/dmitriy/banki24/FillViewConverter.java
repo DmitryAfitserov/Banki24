@@ -26,7 +26,7 @@ public class FillViewConverter {
     private TextView toCode;
     private EditText fromValue;
     private EditText toValue;
-    private ImageButton exchange;
+    private Button exchange;
     private KursModelRub kmb;
     private BigDecimal coef;
     private BigDecimal one = new BigDecimal("1");
@@ -43,7 +43,7 @@ public class FillViewConverter {
         toCode = (TextView)converter.findViewById(R.id.tocode);
         fromValue = (EditText)converter.findViewById(R.id.editText_from);
         toValue = (EditText)converter.findViewById(R.id.editText_to);
-        exchange = (ImageButton)converter.findViewById(R.id.exchange_button);
+        exchange = (Button)converter.findViewById(R.id.exchange_button);
 
         fromValue.addTextChangedListener(new TextWatcher() {
             @Override

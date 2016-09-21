@@ -15,66 +15,6 @@
         android:id="@+id/titleTextView"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="90dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Изменить отношение валют"
-            android:layout_gravity="center"
-            android:textSize="16dp"
-            android:layout_margin="4dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Доллар США(USD)"
-            android:layout_gravity="center"
-            android:textSize="25dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/back"
-            android:paddingRight="9dp"
-            android:paddingLeft="9dp"
-            android:paddingBottom="3dp"
-            android:textColor="#ffffff"
-            android:id="@+id/fromname"
-            android:gravity="center"
-            />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="поменять"
-            android:layout_margin="5dp"
-            android:background="@drawable/change"
-            android:id="@+id/exchange_button"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Беларусский рубль(BYN)"
-            android:textSize="25dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/back"
-            android:paddingRight="9dp"
-            android:paddingLeft="9dp"
-            android:paddingBottom="3dp"
-            android:textColor="#ffffff"
-            android:id="@+id/toname"
-            />
-    </LinearLayout>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -166,5 +106,70 @@
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="30dp"
         android:id="@+id/backbutton"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="19pt"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Изменить отношение валют(из ... в ...)"
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:layout_margin="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Доллар США(USD)"
+            android:layout_gravity="center"
+            android:textSize="25dp"
+            android:layout_margin="5dp"
+
+            android:paddingRight="9dp"
+            android:paddingLeft="9dp"
+            android:paddingBottom="3dp"
+            android:textColor="#000000"
+            android:id="@+id/fromname"
+            android:gravity="center"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:text="поменять"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="17dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/for_button"
+            android:id="@+id/exchange_button"
+            android:textColor="#ffffff"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Беларусский рубль(BYN)"
+            android:textSize="25dp"
+            android:layout_margin="5dp"
+            android:paddingRight="9dp"
+            android:paddingLeft="9dp"
+            android:paddingBottom="3dp"
+            android:textColor="#000000"
+            android:id="@+id/toname"
+            />
+    </LinearLayout>
 
 </FrameLayout>

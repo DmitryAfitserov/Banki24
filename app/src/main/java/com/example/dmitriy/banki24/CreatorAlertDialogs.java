@@ -75,15 +75,15 @@ public class CreatorAlertDialogs {
 
         for(int itemrate = 0; itemrate < listrates.size(); itemrate++){
             if(itemrate < listshow.size()){
-                listwithname[itemrate] = listrates.get(itemrate).getmName();
+                listwithname[itemrate] = listrates.get(itemrate).getmName() + "(" +
+                        listrates.get(itemrate).getmCharCode() + ")";
                 listBoolean[itemrate] = true;
                 mSelectedItems.add(itemrate);
-                Log.d("EEE", "true");
             }
             if(itemrate >= listshow.size()){
-                listwithname[itemrate] = listrates.get(itemrate).getmName();
+                listwithname[itemrate] = listrates.get(itemrate).getmName() + "(" +
+                        listrates.get(itemrate).getmCharCode() + ")";;
                 listBoolean[itemrate] = false;
-                Log.d("EEE", "false");
             }
         }
 
@@ -138,19 +138,18 @@ public class CreatorAlertDialogs {
         listrates = RusKursLab.get().getmListRusRub();
         listshow = RusKursLab.get().getListisshow();
 
-        Log.d("EEE", String.valueOf(RusKursLab.get().getmListRusRub().size()));
-
         for(int itemrate = 0; itemrate < listrates.size(); itemrate++){
             if(itemrate < listshow.size()){
-                listwithname[itemrate] = listrates.get(itemrate).getmName();
+                listwithname[itemrate] = listrates.get(itemrate).getmName() + "(" +
+                        listrates.get(itemrate).getmCharCode() + ")";
                 listBoolean[itemrate] = true;
                 mSelectedItems.add(itemrate);
                 Log.d("EEE", "true");
             }
             if(itemrate >= listshow.size()){
-                listwithname[itemrate] = listrates.get(itemrate).getmName();
+                listwithname[itemrate] = listrates.get(itemrate).getmName() + "(" +
+                        listrates.get(itemrate).getmCharCode() + ")";
                 listBoolean[itemrate] = false;
-                Log.d("EEE", "false");
             }
         }
 
@@ -244,7 +243,6 @@ public class CreatorAlertDialogs {
         }).create().show();
 
     }
-
 
     public void saveInt(int value){
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
