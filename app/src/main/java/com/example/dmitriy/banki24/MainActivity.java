@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -53,66 +54,75 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
         RusKursLab.get().setListisshow(cursorRus);
         MetalLab.get().setNameCurrency(creatorDialogs.loadString());
 
-
-
+        UpdatePanel p = new UpdatePanel();
+        p.setReloadViewPager(this);
 
         fm = getSupportFragmentManager();
-       // if(fragmentTransaction == null) {
-        fragmentTransaction = null;
-            fragmentTransaction = fm.beginTransaction();
-       // }
+        fragmentTransaction = fm.beginTransaction();
 
-        if(fragmentTransaction.isEmpty()) {
-            fragmentTransaction.add(R.id.FragmentConteiner, new UpdatePanel(this)).commit();
+        if(savedInstanceState != null) {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag("updatePanel");
+            if(fragment!=null) {
+                fragmentTransaction.detach(fragment);
+            }
         }
 
-        pagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+        fragmentTransaction.add(R.id.FragmentConteiner, p, "updatePanel").commit();
 
-            @Override
-            public Fragment getItem(int position) {
-                if (position == 2) {
-                    return new BelFragment();
-                }
-                if (position == 1) {
-                    return new RusFragment();
-                }
-                if (position == 0) {
+
+
+            pagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+
+                @Override
+                public Fragment getItem(int position) {
+                    if (position == 2) {
+                        return new BelFragment();
+                    }
+                    if (position == 1) {
+                        return new RusFragment();
+                    }
+                    if (position == 0) {
+                        return new MetalFragment();
+                    }
                     return new MetalFragment();
                 }
-                return new  MetalFragment();
-            }
 
 
-            @Override
-            public int getCount() {
-                return 3;
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                if (position == 1) {
-                    return "Российский рубль";
-                }
-                if (position == 2) {
-                    return "Белорусский рубль";
-                }
-                if (position == 0) {
-                    return "Драгоценные металы";
+                @Override
+                public int getCount() {
+                    return 3;
                 }
 
-                return "Title ";
-            }
+                @Override
+                public CharSequence getPageTitle(int position) {
+                    if (position == 1) {
+                        return "Российский рубль";
+                    }
+                    if (position == 2) {
+                        return "Белорусский рубль";
+                    }
+                    if (position == 0) {
+                        return "Драгоценные металы";
+                    }
 
-            @Override
-            public int getItemPosition(Object object) {
-                return POSITION_NONE;
-            }
-        };
+                    return "Title ";
+                }
 
+                @Override
+                public int getItemPosition(Object object) {
+                    return POSITION_NONE;
+                }
+            };
         viewPager.setAdapter(pagerAdapter);
 
         viewPager.setCurrentItem(creatorDialogs.loadInt());
 
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override

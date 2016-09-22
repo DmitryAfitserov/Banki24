@@ -28,9 +28,9 @@ public class UpdatePanel extends Fragment {
 
 
 
-    public UpdatePanel(ReloadViewPager reloadViewPager){
-        this.reloadViewPager = reloadViewPager;
-    }
+  //  public UpdatePanel(ReloadViewPager reloadViewPager){
+       // this.reloadViewPager = reloadViewPager;
+  //  }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +84,7 @@ public class UpdatePanel extends Fragment {
         date.setText(dataString);
     }
 
-
-
+    public void setReloadViewPager(ReloadViewPager reloadViewPager) {
+        this.reloadViewPager = reloadViewPager;
+    }
 }
