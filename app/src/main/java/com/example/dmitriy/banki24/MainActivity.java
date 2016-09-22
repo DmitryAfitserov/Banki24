@@ -2,6 +2,7 @@ package com.example.dmitriy.banki24;
 
 import android.annotation.TargetApi;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import model.BelKursLab;
@@ -77,7 +79,7 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
                 if (position == 0) {
                     return new MetalFragment();
                 }
-                return new RusFragment();
+                return new  MetalFragment();
             }
 
 
@@ -127,21 +129,28 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.startpage:
-                creatorDialogs.createAlertDialogStartPage(this);
-                return true;
-            case R.id.belrub:
-                creatorDialogs.createAlertDialogPageBel(this, pagerAdapter);
-                return true;
-            case R.id.rusrub:
-                creatorDialogs.createAlertDialogPageRus(this, pagerAdapter);
-                return true;
-            case R.id.metal:
-                creatorDialogs.createAlertDialogPageMetal(this, pagerAdapter);
-                return true;
+        ConnectivityManager cm = (ConnectivityManager)
+                getSystemService(getApplicationContext().CONNECTIVITY_SERVICE);
+        if(cm.getActiveNetworkInfo() != null) {
+            switch (item.getItemId()) {
+                case R.id.startpage:
+                    creatorDialogs.createAlertDialogStartPage(this);
+                    return true;
+                case R.id.belrub:
+                    creatorDialogs.createAlertDialogPageBel(this, pagerAdapter);
+                    return true;
+                case R.id.rusrub:
+                    creatorDialogs.createAlertDialogPageRus(this, pagerAdapter);
+                    return true;
+                case R.id.metal:
+                    creatorDialogs.createAlertDialogPageMetal(this, pagerAdapter);
+                    return true;
+            }
         }
-
+        else {
+            Toast.makeText(getApplicationContext(), "Необходимо интернет соединение",
+                    Toast.LENGTH_SHORT).show();
+        }
         return super.onMenuItemSelected(featureId, item);
 
     }

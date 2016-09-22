@@ -30,7 +30,8 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
     private ArrayList<String> listwithName = new ArrayList<>();
     private Adapter adapter;
     private String nameCurrency;
-    LoadingCircle loadingCircle;
+    private LoadingCircle loadingCircle;
+    private Boolean isSuccess;
 
 
     @Override
@@ -44,6 +45,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
         loadingCircle = new LoadingCircle(rootView, getActivity());
         loadingCircle.setListShown(false);
         listwithName = MetalLab.get().getListwithNames();
+        isSuccess = false;
 
 
         return rootView;
@@ -53,7 +55,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
     public void asynccompleteBel(boolean success) {
 
         if (success) {
-
+            isSuccess = true;
             listwithName = MetalLab.get().getListwithNames();
             listMetal = MetalLab.get().getmListGold();
             ((Adapter) getListAdapter()).clear();
@@ -62,6 +64,7 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
             nameCurrency = MetalLab.get().getNameCurrency();
 
         } else {
+            isSuccess = false;
             Toast.makeText(getActivity().getApplicationContext(), "Ошибка интернет соединения", Toast.LENGTH_SHORT).show();
         }
         loadingCircle.setListShown(true);
@@ -93,103 +96,102 @@ public class MetalFragment extends ListFragment implements AsyncDelegate {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            convertView = getActivity().getLayoutInflater().inflate(R.layout.fragment_metal, null);
-            TextView nameTextview = (TextView) convertView.findViewById(R.id.name_item);
-            nameTextview.setText(getItem(position));
+            if(isSuccess) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.fragment_metal, null);
+                TextView nameTextview = (TextView) convertView.findViewById(R.id.name_item);
+                nameTextview.setText(getItem(position));
 
 
+                for (int item = 0; item < listMetal.size(); item++) {
+                    if (listMetal.get(item).getmName().equals(getItem(position))) {
+                        if (listMetal.get(item).getmNominal().equals("1")) {
+                            TextView current_1gr_TextView = (TextView) convertView.findViewById(R.id.rate_1gr);
 
+                            current_1gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
+                                    listMetal.get(item).getmRate() + " " + nameCurrency);
 
-            for(int item = 0; item < listMetal.size(); item ++){
-                if(listMetal.get(item).getmName().equals(getItem(position))){
-                    if(listMetal.get(item).getmNominal().equals("1")){
-                        TextView current_1gr_TextView = (TextView) convertView.findViewById(R.id.rate_1gr);
+                            TextView change_rate_1gr_TextView = (TextView) convertView.findViewById(R.id.change_rate_1gr);
 
-                         current_1gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
-                                 listMetal.get(item).getmRate()+ " " + nameCurrency);
-
-                        TextView change_rate_1gr_TextView = (TextView)convertView.findViewById(R.id.change_rate_1gr);
-
-                        if (listMetal.get(item).getGhangeRate().startsWith("+")) {
-                            change_rate_1gr_TextView.setTextColor(Color.RED);
+                            if (listMetal.get(item).getGhangeRate().startsWith("+")) {
+                                change_rate_1gr_TextView.setTextColor(Color.RED);
                             } else change_rate_1gr_TextView.setTextColor(Color.rgb(5, 179, 17));
-                        change_rate_1gr_TextView.setText(listMetal.get(item).getGhangeRate());
-                    }
+                            change_rate_1gr_TextView.setText(listMetal.get(item).getGhangeRate());
+                        }
 
-                    if(listMetal.get(item).getmNominal().equals("10")){
-                        TextView current_10gr_TextView = (TextView) convertView.findViewById(R.id.rate_10gr);
+                        if (listMetal.get(item).getmNominal().equals("10")) {
+                            TextView current_10gr_TextView = (TextView) convertView.findViewById(R.id.rate_10gr);
 
-                        current_10gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
-                                listMetal.get(item).getmRate()+ " " + nameCurrency);
+                            current_10gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
+                                    listMetal.get(item).getmRate() + " " + nameCurrency);
 
-                        TextView change_rate_10gr_TextView = (TextView)convertView.findViewById(R.id.change_rate_10gr);
+                            TextView change_rate_10gr_TextView = (TextView) convertView.findViewById(R.id.change_rate_10gr);
 
-                        if (listMetal.get(item).getGhangeRate().startsWith("+")) {
-                            change_rate_10gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_10gr_TextView.setTextColor(Color.rgb(5, 179, 17));
-                        change_rate_10gr_TextView.setText(listMetal.get(item).getGhangeRate());
+                            if (listMetal.get(item).getGhangeRate().startsWith("+")) {
+                                change_rate_10gr_TextView.setTextColor(Color.RED);
+                            } else change_rate_10gr_TextView.setTextColor(Color.rgb(5, 179, 17));
+                            change_rate_10gr_TextView.setText(listMetal.get(item).getGhangeRate());
 
-                    }
-                    if(listMetal.get(item).getmNominal().equals("50")){
-                        TextView current_50gr_TextView = (TextView) convertView.findViewById(R.id.rate_50gr);
+                        }
+                        if (listMetal.get(item).getmNominal().equals("50")) {
+                            TextView current_50gr_TextView = (TextView) convertView.findViewById(R.id.rate_50gr);
 
-                        current_50gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
-                                listMetal.get(item).getmRate()+ " " + nameCurrency);
+                            current_50gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
+                                    listMetal.get(item).getmRate() + " " + nameCurrency);
 
-                        TextView change_rate_50gr_TextView = (TextView)convertView.findViewById(R.id.change_rate_50gr);
+                            TextView change_rate_50gr_TextView = (TextView) convertView.findViewById(R.id.change_rate_50gr);
 
-                        if (listMetal.get(item).getGhangeRate().startsWith("+")) {
-                            change_rate_50gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_50gr_TextView.setTextColor(Color.rgb(5, 179, 17));
-                        change_rate_50gr_TextView.setText(listMetal.get(item).getGhangeRate());
-                    }
-                    if(listMetal.get(item).getmNominal().equals("100")){
-                        TextView current_100gr_TextView = (TextView) convertView.findViewById(R.id.rate_100gr);
+                            if (listMetal.get(item).getGhangeRate().startsWith("+")) {
+                                change_rate_50gr_TextView.setTextColor(Color.RED);
+                            } else change_rate_50gr_TextView.setTextColor(Color.rgb(5, 179, 17));
+                            change_rate_50gr_TextView.setText(listMetal.get(item).getGhangeRate());
+                        }
+                        if (listMetal.get(item).getmNominal().equals("100")) {
+                            TextView current_100gr_TextView = (TextView) convertView.findViewById(R.id.rate_100gr);
 
-                        current_100gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
-                                listMetal.get(item).getmRate()+ " " + nameCurrency);
+                            current_100gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
+                                    listMetal.get(item).getmRate() + " " + nameCurrency);
 
-                        TextView change_rate_100gr_TextView = (TextView)convertView.findViewById(R.id.change_rate_100gr);
+                            TextView change_rate_100gr_TextView = (TextView) convertView.findViewById(R.id.change_rate_100gr);
 
-                        if (listMetal.get(item).getGhangeRate().startsWith("+")) {
-                            change_rate_100gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_100gr_TextView.setTextColor(Color.rgb(5, 179, 17));
-                        change_rate_100gr_TextView.setText(listMetal.get(item).getGhangeRate());
-                    }
-                    if(listMetal.get(item).getmNominal().equals("500")){
-                        TextView current_500gr_TextView = (TextView) convertView.findViewById(R.id.rate_500gr);
+                            if (listMetal.get(item).getGhangeRate().startsWith("+")) {
+                                change_rate_100gr_TextView.setTextColor(Color.RED);
+                            } else change_rate_100gr_TextView.setTextColor(Color.rgb(5, 179, 17));
+                            change_rate_100gr_TextView.setText(listMetal.get(item).getGhangeRate());
+                        }
+                        if (listMetal.get(item).getmNominal().equals("500")) {
+                            TextView current_500gr_TextView = (TextView) convertView.findViewById(R.id.rate_500gr);
 
-                        current_500gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
-                                listMetal.get(item).getmRate()+ " " + nameCurrency);
-                        TextView change_rate_500gr_TextView = (TextView)convertView.findViewById(R.id.change_rate_500gr);
+                            current_500gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
+                                    listMetal.get(item).getmRate() + " " + nameCurrency);
+                            TextView change_rate_500gr_TextView = (TextView) convertView.findViewById(R.id.change_rate_500gr);
 
-                        if (listMetal.get(item).getGhangeRate().startsWith("+")) {
-                            change_rate_500gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_500gr_TextView.setTextColor(Color.rgb(5, 179, 17));
-                        change_rate_500gr_TextView.setText(listMetal.get(item).getGhangeRate());
+                            if (listMetal.get(item).getGhangeRate().startsWith("+")) {
+                                change_rate_500gr_TextView.setTextColor(Color.RED);
+                            } else change_rate_500gr_TextView.setTextColor(Color.rgb(5, 179, 17));
+                            change_rate_500gr_TextView.setText(listMetal.get(item).getGhangeRate());
 
-                    }
-                    if(listMetal.get(item).getmNominal().equals("1000")){
-                        TextView current_1000gr_TextView = (TextView) convertView.findViewById(R.id.rate_1000gr);
+                        }
+                        if (listMetal.get(item).getmNominal().equals("1000")) {
+                            TextView current_1000gr_TextView = (TextView) convertView.findViewById(R.id.rate_1000gr);
 
-                        current_1000gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
-                                listMetal.get(item).getmRate()+ " " + nameCurrency);
+                            current_1000gr_TextView.setText(listMetal.get(item).getmNominal() + " гр." + " - " +
+                                    listMetal.get(item).getmRate() + " " + nameCurrency);
 
-                        TextView change_rate_1000gr_TextView = (TextView)convertView.findViewById(R.id.change_rate_1000gr);
+                            TextView change_rate_1000gr_TextView = (TextView) convertView.findViewById(R.id.change_rate_1000gr);
 
-                        if (listMetal.get(item).getGhangeRate().startsWith("+")) {
-                            change_rate_1000gr_TextView.setTextColor(Color.RED);
-                        } else change_rate_1000gr_TextView.setTextColor(Color.rgb(5, 179, 17));
-                        change_rate_1000gr_TextView.setText(listMetal.get(item).getGhangeRate());
+                            if (listMetal.get(item).getGhangeRate().startsWith("+")) {
+                                change_rate_1000gr_TextView.setTextColor(Color.RED);
+                            } else change_rate_1000gr_TextView.setTextColor(Color.rgb(5, 179, 17));
+                            change_rate_1000gr_TextView.setText(listMetal.get(item).getGhangeRate());
+                        }
                     }
                 }
+
+
+                if (position % 2 == 1) {
+                    convertView.setBackgroundColor(Color.argb(190, 235, 240, 240));
+                } else convertView.setBackgroundColor(Color.argb(255, 243, 241, 241));
             }
-
-
-            if (position % 2 == 1) {
-                convertView.setBackgroundColor(Color.argb(190, 235, 240, 240));
-            } else convertView.setBackgroundColor(Color.argb(255, 243, 241, 241));
-
             return convertView;
         }
 

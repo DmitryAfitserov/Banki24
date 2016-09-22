@@ -90,7 +90,7 @@ public class AsyncTaskGold extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean aBoolean) {
         super.onPostExecute(aBoolean);
-        delegate.asynccompleteBel(true);
+        delegate.asynccompleteBel(aBoolean);
         try {
             finalize();
         } catch (Throwable throwable) {
