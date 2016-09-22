@@ -138,8 +138,8 @@ public class FillViewConverter {
         toValue.setText(kmb.getmRate());
     }
 
-    public ImageButton getBack() {
-        return (ImageButton) converter.findViewById(R.id.backbutton);
+    public Button getBack() {
+        return (Button) converter.findViewById(R.id.backbutton);
     }
 
 

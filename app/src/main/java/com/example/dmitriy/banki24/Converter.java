@@ -27,7 +27,7 @@ public class Converter extends AppCompatActivity {
             fillViewConverter.fillRusConverter(keyposition);
         }
 
-        ImageButton backButton = fillViewConverter.getBack();
+        Button backButton = fillViewConverter.getBack();
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
