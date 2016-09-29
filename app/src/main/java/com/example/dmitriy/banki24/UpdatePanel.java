@@ -23,7 +23,6 @@ public class UpdatePanel extends Fragment {
     private Button upDate;
     private static final int REQUEST_CODE_DATE = 0;
     public static final String Extra_Date =  "key_data";
-    private ReloadViewPager reloadViewPager;
 
 
 
@@ -64,7 +63,6 @@ public class UpdatePanel extends Fragment {
           //  Log.d("RRR", "вот оно"  +  date.toString());
 
             upDateButtun(dateNew);
-            reloadViewPager.reload();
 
         }
 
