@@ -21,7 +21,7 @@ import model.BelKursLab;
 import model.MetalLab;
 import model.RusKursLab;
 
-public class MainActivity extends FragmentActivity implements ReloadViewPager {
+public class MainActivity extends FragmentActivity {
 
 
     private ViewPager viewPager;
@@ -30,6 +30,7 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
     private Toolbar mActionBarToolbar;
     private  FragmentStatePagerAdapter pagerAdapter;
     private CreatorAlertDialogs creatorDialogs;
+    private MenuItem mRefreshMenuItem;
 
 
 
@@ -55,7 +56,6 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
         MetalLab.get().setNameCurrency(creatorDialogs.loadString());
 
         UpdatePanel p = new UpdatePanel();
-        p.setReloadViewPager(this);
 
         fm = getSupportFragmentManager();
         fragmentTransaction = fm.beginTransaction();
@@ -120,21 +120,18 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
     }
 
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void reload() {
-        pagerAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+
+        mRefreshMenuItem = menu.findItem(R.id.update);
+
+
         return true;
     }
+
+
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
@@ -154,6 +151,9 @@ public class MainActivity extends FragmentActivity implements ReloadViewPager {
                     return true;
                 case R.id.metal:
                     creatorDialogs.createAlertDialogPageMetal(this, pagerAdapter);
+                    return true;
+                case R.id.update:
+                    pagerAdapter.notifyDataSetChanged();
                     return true;
             }
         }

@@ -51,15 +51,6 @@ public class UpdatePanel extends Fragment {
 
         upDateButtun(Date.get().getDate());
 
-        upDate = (Button)v.findViewById(R.id.button_upDate);
-        upDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                reloadViewPager.reload();
-
-            }
-        });
 
 
         return v;
@@ -84,7 +75,4 @@ public class UpdatePanel extends Fragment {
         date.setText(dataString);
     }
 
-    public void setReloadViewPager(ReloadViewPager reloadViewPager) {
-        this.reloadViewPager = reloadViewPager;
-    }
 }

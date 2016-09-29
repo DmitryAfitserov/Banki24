@@ -1,25 +1,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:yourapp="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/update"
+        android:icon="@drawable/refresh"
+        android:title="update"
+        android:showAsAction="ifRoom"
+        />
 
     <item
         android:id="@+id/startpage"
         android:title="@string/startpage"
-        yourapp:showAsAction="always"
+
         />
 
     <item
         android:id="@+id/belrub"
         android:title="@string/belrub"
-        yourapp:showAsAction="always" />
+         />
 
     <item
     android:id="@+id/rusrub"
     android:title="@string/rusrub"
-    yourapp:showAsAction="always" />
+     />
 
     <item
         android:id="@+id/metal"
         android:title="@string/metal"
-        yourapp:showAsAction="always" />
+         />
 
 </menu>
