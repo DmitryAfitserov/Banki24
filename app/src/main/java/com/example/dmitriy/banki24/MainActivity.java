@@ -2,6 +2,7 @@ package com.example.dmitriy.banki24;
 
 import android.annotation.TargetApi;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -25,12 +27,13 @@ public class MainActivity extends FragmentActivity {
 
 
     private ViewPager viewPager;
+    private PagerTabStrip pagerTabStrip;
     private FragmentManager fm ;
     private FragmentTransaction fragmentTransaction;
     private Toolbar mActionBarToolbar;
     private  FragmentStatePagerAdapter pagerAdapter;
     private CreatorAlertDialogs creatorDialogs;
-    private MenuItem mRefreshMenuItem;
+    UpdatePanel panel;
 
 
 
@@ -46,6 +49,9 @@ public class MainActivity extends FragmentActivity {
         creatorDialogs = new CreatorAlertDialogs(getApplicationContext());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(3);
+        pagerTabStrip = (PagerTabStrip) findViewById(R.id.pagerTabStrip);
+        pagerTabStrip.setTabIndicatorColor(Color.BLUE);
+        pagerTabStrip.setTextColor(Color.BLUE);
 
         ControlDatabases controlDatabases = new ControlDatabases(getApplicationContext());
         controlDatabases.open();
@@ -55,7 +61,7 @@ public class MainActivity extends FragmentActivity {
         RusKursLab.get().setListisshow(cursorRus);
         MetalLab.get().setNameCurrency(creatorDialogs.loadString());
 
-        UpdatePanel p = new UpdatePanel();
+        panel = new UpdatePanel();
 
         fm = getSupportFragmentManager();
         fragmentTransaction = fm.beginTransaction();
@@ -67,7 +73,7 @@ public class MainActivity extends FragmentActivity {
             }
         }
 
-        fragmentTransaction.add(R.id.FragmentConteiner, p, "updatePanel").commit();
+        fragmentTransaction.add(R.id.FragmentConteiner, panel, "updatePanel").commit();
 
 
 
@@ -124,10 +130,6 @@ public class MainActivity extends FragmentActivity {
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-
-        mRefreshMenuItem = menu.findItem(R.id.update);
-
-
         return true;
     }
 
@@ -154,6 +156,9 @@ public class MainActivity extends FragmentActivity {
                     return true;
                 case R.id.update:
                     pagerAdapter.notifyDataSetChanged();
+                    return true;
+                case R.id.calendar:
+                    panel.createCalendar(pagerAdapter);
                     return true;
             }
         }

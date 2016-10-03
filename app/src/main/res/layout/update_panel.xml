@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#D8DEF5">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:background="#D8DEF5"
+    android:gravity="center"
+    android:id="@+id/linearlayout">
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Дата"
-        android:id="@+id/date"
-        android:background="#6D87F2"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textColor="#ffffff"
-        android:layout_centerHorizontal="true"
+        android:text="Курс представлен на: "
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:id="@+id/textbeforeDate"/>
 
- />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="23.34.45"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:id="@+id/dateText"/>
 
 
-</RelativeLayout>
+</LinearLayout>

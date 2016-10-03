@@ -16,12 +16,12 @@
             android:layout_height="match_parent"
             android:id="@+id/name_item"
             android:text="baks"
-
+            android:paddingLeft="5dp"
             android:textSize="17dp"
             android:layout_weight="2"
             android:gravity="left|center_vertical"
             android:textColor="@android:color/black"
-            android:layout_marginLeft="3dp" />
+             />
 
         <LinearLayout
             android:layout_width="match_parent"
