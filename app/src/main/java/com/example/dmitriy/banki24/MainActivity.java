@@ -14,8 +14,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -50,8 +52,12 @@ public class MainActivity extends FragmentActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(3);
         pagerTabStrip = (PagerTabStrip) findViewById(R.id.pagerTabStrip);
-        pagerTabStrip.setTabIndicatorColor(Color.BLUE);
-        pagerTabStrip.setTextColor(Color.BLUE);
+        pagerTabStrip.setDrawFullUnderline(true);
+
+        pagerTabStrip.setTabIndicatorColor(Color.WHITE);
+        pagerTabStrip.setTextColor(Color.WHITE);
+        pagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+
 
         ControlDatabases controlDatabases = new ControlDatabases(getApplicationContext());
         controlDatabases.open();

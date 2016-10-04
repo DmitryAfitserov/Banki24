@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:background="#D8DEF5"
+    android:background="#4fa1d1"
     android:gravity="center"
     android:id="@+id/linearlayout">
 
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Курс представлен на: "
         android:textSize="20dp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:id="@+id/textbeforeDate"/>
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         tools:text="23.34.45"
         android:textSize="20dp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:id="@+id/dateText"/>
 
 

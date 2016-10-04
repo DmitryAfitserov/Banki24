@@ -25,7 +25,7 @@ import model.RusKursLab;
  */
 public class RusFragment extends ListFragment implements AsyncDelegate {
 
-    private ArrayList<KursModelRub> listKursRus;
+    private ArrayList<KursModelRub> listKursRus = new ArrayList<>();
     private AsyncTaskRus async;
     Adapter adapter;
     private static final String keyClass = "opa";
@@ -37,7 +37,7 @@ public class RusFragment extends ListFragment implements AsyncDelegate {
 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        listKursRus = RusKursLab.get().getmListRusRub();
+        listKursRus =  RusKursLab.get().getmListRusRub();
         if(async == null){
             async = new AsyncTaskRus(this);
             async.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[])null);
@@ -78,7 +78,6 @@ public class RusFragment extends ListFragment implements AsyncDelegate {
     public void clean() {
         if(!listKursRus.isEmpty()) {
             listKursRus.clear();
-        //    getActivity().findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
         }
         if(getListAdapter()==null) {
