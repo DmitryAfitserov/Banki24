@@ -52,7 +52,7 @@ public class SQLdatabase extends SQLiteOpenHelper {
 
     private void insert(SQLiteDatabase db, String charcode, Boolean isselected, String nameTable){
         ContentValues contentValue = new ContentValues();
-        
+
         contentValue.put(KEY_CHAR_CODE, charcode);
         if(isselected){
             contentValue.put(KEY_IS_SELECTED, 1);

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:background="#4fa1d1"
+    android:background="#5b8fff"
     android:gravity="center"
     android:id="@+id/linearlayout">
 
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Курс представлен на: "
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textColor="@android:color/white"
         android:id="@+id/textbeforeDate"/>
 
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="23.34.45"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textColor="@android:color/white"
         android:id="@+id/dateText"/>
 
